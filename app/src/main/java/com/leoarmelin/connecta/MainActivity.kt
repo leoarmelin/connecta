@@ -7,10 +7,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import com.leoarmelin.connecta.helpers.SharedPreferencesHelper
 import com.leoarmelin.connecta.navigation.MainNavHost
 import com.leoarmelin.connecta.ui.theme.ConnectaTheme
+import com.leoarmelin.connecta.viewmodels.WordsViewModel
 
 class MainActivity : ComponentActivity() {
+
+    private val wordsViewModel by lazy {
+        WordsViewModel(
+            sharedPreferencesHelper = SharedPreferencesHelper(this.applicationContext)
+        )
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -20,7 +28,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainNavHost()
+                    MainNavHost(
+                        wordsViewModel = wordsViewModel
+                    )
                 }
             }
         }

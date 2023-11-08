@@ -8,9 +8,12 @@ import com.leoarmelin.connecta.navigation.Routes.GameScreen
 import com.leoarmelin.connecta.navigation.Routes.StartScreen
 import com.leoarmelin.connecta.ui.screens.GameScreen
 import com.leoarmelin.connecta.ui.screens.StartScreen
+import com.leoarmelin.connecta.viewmodels.WordsViewModel
 
 @Composable
-fun MainNavHost() {
+fun MainNavHost(
+    wordsViewModel: WordsViewModel
+) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = StartScreen) {
@@ -23,6 +26,7 @@ fun MainNavHost() {
         composable(GameScreen) {
             GameScreen(
                 navController = navController,
+                wordsViewModel = wordsViewModel
             )
         }
     }
