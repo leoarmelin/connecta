@@ -71,4 +71,7 @@ dependencies {
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
+
+    // Google Fonts
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.5.4")
 }
