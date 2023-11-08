@@ -48,6 +48,22 @@ fun GameScreen(
         }
 
         item {
+            Text(
+                text = "Has won: $hasWon",
+                style = Typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+        }
+
+        item {
+            Text(
+                text = "Tries: $tries",
+                style = Typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+        }
+
+        item {
             FlowRow(Modifier.padding(top = 16.dp)) {
                 words.forEach {word ->
                     WordPill(
