@@ -68,6 +68,9 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    
+    // Google Fonts
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.5.4")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
