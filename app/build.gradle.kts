@@ -68,10 +68,17 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    
+    // Google Fonts
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.5.4")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
 
-    // Google Fonts
-    implementation("androidx.compose.ui:ui-text-google-fonts:1.5.4")
+    // Moshi
+    implementation("com.squareup.moshi:moshi:1.14.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
 }
