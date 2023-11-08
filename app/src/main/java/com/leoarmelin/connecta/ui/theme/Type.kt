@@ -19,16 +19,28 @@ val provider = GoogleFont.Provider(
 
 val interFont = GoogleFont("Inter")
 
-val fontFamily = FontFamily(
-    Font(googleFont = interFont, fontProvider = provider)
-)
+val fontFamily = FontFamily(Font(googleFont = interFont, fontProvider = provider))
 
 val Typography = Typography(
-    bodyLarge = TextStyle(
+    bodyMedium = TextStyle(
         fontFamily = fontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
-    )
+    ),
+    titleMedium = TextStyle(
+        fontFamily = fontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 32.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
+    ),
+    labelMedium = TextStyle(
+        fontFamily = fontFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = 20.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
+    ),
 )
