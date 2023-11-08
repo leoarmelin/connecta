@@ -1,0 +1,56 @@
+[
+  [
+    {
+      "value": "Maçã",
+      "category": "Frutas"
+    },
+    {
+      "value": "Abacaxi",
+      "category": "Frutas"
+    },
+    {
+      "value": "Pera",
+      "category": "Frutas"
+    },
+    {
+      "value": "Laranja",
+      "category": "Frutas"
+    }
+  ],
+  [
+    {
+      "value": "Cachorro",
+      "category": "Animais"
+    },
+    {
+      "value": "Gato",
+      "category": "Animais"
+    },
+    {
+      "value": "Pássaro",
+      "category": "Animais"
+    },
+    {
+      "value": "Tartaruga",
+      "category": "Animais"
+    }
+  ],
+  [
+    {
+      "value": "Azul",
+      "category": "Cores"
+    },
+    {
+      "value": "Amarelo",
+      "category": "Cores"
+    },
+    {
+      "value": "Verde",
+      "category": "Cores"
+    },
+    {
+      "value": "Vermelho",
+      "category": "Cores"
+    }
+  ]
+]
