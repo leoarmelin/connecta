@@ -1,6 +1,5 @@
 package com.leoarmelin.connecta.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.leoarmelin.connecta.helpers.SharedPreferencesHelper
@@ -10,7 +9,10 @@ import com.leoarmelin.connecta.repositories.WordsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
@@ -35,44 +37,48 @@ class WordsViewModel(
     private val _finishedWords = MutableStateFlow<List<Word>>(emptyList())
     val finishedWords get() = _finishedWords.asStateFlow()
 
+    private val _tries = MutableStateFlow(0)
+    val tries get() = _tries.asStateFlow()
+
+    val hasWon = _finishedWords.map { finishedWords ->
+        finishedWords.size == _words.value.size
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = false,
+    )
+
     init {
         initializeDate()
         getDailyWords()
 
         viewModelScope.launch {
             _selectedWords.collect { selectedWords ->
-                Log.d("Aoba", "1 - $selectedWords")
                 // Once we selected the WORDS_PER_CATEGORY amount, follow the logic
                 if (selectedWords.size < WORDS_PER_CATEGORY) return@collect
 
-                Log.d("Aoba", "2")
-
                 // If all the words have the same category
                 if (selectedWords.distinctBy { it.category }.size == 1) {
-                    Log.d("Aoba", "3")
                     val newList = _correctWords.value.toMutableList()
                     newList.addAll(selectedWords)
                     _correctWords.value = newList
 
                     // Change form correctWords to finishedWords after 1s
                     delay(1000)
-                    Log.d("Aoba", "4")
                     val newListTwo = _finishedWords.value.toMutableList()
                     newListTwo.addAll(selectedWords)
                     _finishedWords.value = newListTwo
                     _correctWords.value = emptyList()
                 } else {
-                    Log.d("Aoba", "5")
                     val newList = _wrongWords.value.toMutableList()
                     newList.addAll(selectedWords)
                     _wrongWords.value = newList
 
                     // Clear wrong words after 500ms
                     delay(500)
-                    Log.d("Aoba", "6")
                     _wrongWords.value = emptyList()
                 }
-
+                _tries.value += 1
                 _selectedWords.value = emptyList()
             }
         }
@@ -111,15 +117,29 @@ class WordsViewModel(
         words.shuffled().take(CATEGORIES_PER_GAME).flatten().shuffled()
 
     fun selectWord(word: Word) {
-        if (_selectedWords.value.size >= WORDS_PER_CATEGORY) return
+        val selectedWordsCountIsMax = _selectedWords.value.size >= WORDS_PER_CATEGORY
+        val isShowingCorrectAnswers = _correctWords.value.isNotEmpty()
+        val isShowingWrongAnswers = _wrongWords.value.isNotEmpty()
+        val isAlreadyFinished = _finishedWords.value.contains(word)
+
+        if (selectedWordsCountIsMax ||
+            isShowingCorrectAnswers ||
+            isShowingWrongAnswers ||
+            isAlreadyFinished
+        ) return
 
         val newList = _selectedWords.value.toMutableList()
-        newList.add(word)
+
+        if (_selectedWords.value.contains(word)) {
+            newList.remove(word)
+        } else {
+            newList.add(word)
+        }
         _selectedWords.value = newList
     }
 
     companion object {
         const val WORDS_PER_CATEGORY = 4
-        const val CATEGORIES_PER_GAME = 5
+        const val CATEGORIES_PER_GAME = 2
     }
 }
