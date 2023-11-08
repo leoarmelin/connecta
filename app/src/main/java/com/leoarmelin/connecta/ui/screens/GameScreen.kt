@@ -31,6 +31,8 @@ fun GameScreen(
     val correctWords by wordsViewModel.correctWords.collectAsState()
     val wrongWords by wordsViewModel.wrongWords.collectAsState()
     val finishedWords by wordsViewModel.finishedWords.collectAsState()
+    val hasWon by wordsViewModel.hasWon.collectAsState()
+    val tries by wordsViewModel.tries.collectAsState()
 
     LazyColumn(modifier = Modifier.fillMaxSize().padding(8.dp)) {
         item{
