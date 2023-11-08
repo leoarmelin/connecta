@@ -1,5 +1,6 @@
 package com.leoarmelin.connecta.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.leoarmelin.connecta.helpers.SharedPreferencesHelper
@@ -40,30 +41,39 @@ class WordsViewModel(
 
         viewModelScope.launch {
             _selectedWords.collect { selectedWords ->
+                Log.d("Aoba", "1 - $selectedWords")
                 // Once we selected the WORDS_PER_CATEGORY amount, follow the logic
                 if (selectedWords.size < WORDS_PER_CATEGORY) return@collect
 
+                Log.d("Aoba", "2")
+
                 // If all the words have the same category
                 if (selectedWords.distinctBy { it.category }.size == 1) {
+                    Log.d("Aoba", "3")
                     val newList = _correctWords.value.toMutableList()
                     newList.addAll(selectedWords)
                     _correctWords.value = newList
 
                     // Change form correctWords to finishedWords after 1s
                     delay(1000)
+                    Log.d("Aoba", "4")
                     val newListTwo = _finishedWords.value.toMutableList()
                     newListTwo.addAll(selectedWords)
                     _finishedWords.value = newListTwo
                     _correctWords.value = emptyList()
                 } else {
+                    Log.d("Aoba", "5")
                     val newList = _wrongWords.value.toMutableList()
                     newList.addAll(selectedWords)
                     _wrongWords.value = newList
 
                     // Clear wrong words after 500ms
                     delay(500)
+                    Log.d("Aoba", "6")
                     _wrongWords.value = emptyList()
                 }
+
+                _selectedWords.value = emptyList()
             }
         }
     }

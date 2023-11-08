@@ -1,5 +1,6 @@
 package com.leoarmelin.connecta.ui.screens
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.leoarmelin.connecta.ui.theme.Typography
@@ -21,6 +23,10 @@ fun GameScreen(
     wordsViewModel: WordsViewModel
 ) {
     val words by wordsViewModel.words.collectAsState()
+    val selectedWords by wordsViewModel.selectedWords.collectAsState()
+    val correctWords by wordsViewModel.correctWords.collectAsState()
+    val wrongWords by wordsViewModel.wrongWords.collectAsState()
+    val finishedWords by wordsViewModel.finishedWords.collectAsState()
 
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
@@ -34,7 +40,17 @@ fun GameScreen(
         )
 
         words.forEach { word ->
-            Text(word.value)
+            val color by animateColorAsState(
+                label = "color",
+                targetValue = when {
+                    finishedWords.contains(word) -> Color.Gray
+                    correctWords.contains(word) -> Color.Green
+                    wrongWords.contains(word) -> Color.Red
+                    selectedWords.contains(word) -> Color.Blue
+                    else -> Color.Black
+                }
+            )
+            Text(word.value, color = color, modifier = Modifier.clickable { wordsViewModel.selectWord(word) })
         }
     }
 }
