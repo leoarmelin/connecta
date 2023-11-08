@@ -53,6 +53,619 @@
         "value": "Vermelho",
         "category": "Cores"
       }
+    ],
+    [
+      {
+        "value": "Carro",
+        "category": "Veículos"
+      },
+      {
+        "value": "Bicicleta",
+        "category": "Veículos"
+      },
+      {
+        "value": "Avião",
+        "category": "Veículos"
+      },
+      {
+        "value": "Barco",
+        "category": "Veículos"
+      }
+    ],
+    [
+      {
+        "value": "Computador",
+        "category": "Tecnologia"
+      },
+      {
+        "value": "Smartphone",
+        "category": "Tecnologia"
+      },
+      {
+        "value": "Internet",
+        "category": "Tecnologia"
+      },
+      {
+        "value": "Robô",
+        "category": "Tecnologia"
+      }
+    ],
+    [
+      {
+        "value": "Montanha",
+        "category": "Geografia"
+      },
+      {
+        "value": "Rio",
+        "category": "Geografia"
+      },
+      {
+        "value": "Deserto",
+        "category": "Geografia"
+      },
+      {
+        "value": "Floresta",
+        "category": "Geografia"
+      }
+    ],
+    [
+      {
+        "value": "Violino",
+        "category": "Instrumentos Musicais"
+      },
+      {
+        "value": "Piano",
+        "category": "Instrumentos Musicais"
+      },
+      {
+        "value": "Bateria",
+        "category": "Instrumentos Musicais"
+      },
+      {
+        "value": "Guitarra",
+        "category": "Instrumentos Musicais"
+      }
+    ],
+    [
+      {
+        "value": "Camiseta",
+        "category": "Roupas"
+      },
+      {
+        "value": "Calça",
+        "category": "Roupas"
+      },
+      {
+        "value": "Sapato",
+        "category": "Roupas"
+      },
+      {
+        "value": "Vestido",
+        "category": "Roupas"
+      }
+    ],
+    [
+      {
+        "value": "Sofá",
+        "category": "Mobília"
+      },
+      {
+        "value": "Mesa",
+        "category": "Mobília"
+      },
+      {
+        "value": "Cama",
+        "category": "Mobília"
+      },
+      {
+        "value": "Cadeira",
+        "category": "Mobília"
+      }
+    ],
+    [
+      {
+        "value": "Primavera",
+        "category": "Estações do Ano"
+      },
+      {
+        "value": "Verão",
+        "category": "Estações do Ano"
+      },
+      {
+        "value": "Outono",
+        "category": "Estações do Ano"
+      },
+      {
+        "value": "Inverno",
+        "category": "Estações do Ano"
+      }
+    ],
+    [
+      {
+        "value": "Astronomia",
+        "category": "Ciências"
+      },
+      {
+        "value": "Biologia",
+        "category": "Ciências"
+      },
+      {
+        "value": "Física",
+        "category": "Ciências"
+      },
+      {
+        "value": "Química",
+        "category": "Ciências"
+      }
+    ],
+    [
+      {
+        "value": "Açúcar",
+        "category": "Ingredientes"
+      },
+      {
+        "value": "Sal",
+        "category": "Ingredientes"
+      },
+      {
+        "value": "Farinha",
+        "category": "Ingredientes"
+      },
+      {
+        "value": "Óleo",
+        "category": "Ingredientes"
+      }
+    ],
+    [
+      {
+        "value": "América do Norte",
+        "category": "Continentes"
+      },
+      {
+        "value": "Europa",
+        "category": "Continentes"
+      },
+      {
+        "value": "África",
+        "category": "Continentes"
+      },
+      {
+        "value": "Ásia",
+        "category": "Continentes"
+      }
+    ],
+    [
+      {
+        "value": "Pizza",
+        "category": "Comidas"
+      },
+      {
+        "value": "Hambúrguer",
+        "category": "Comidas"
+      },
+      {
+        "value": "Sushi",
+        "category": "Comidas"
+      },
+      {
+        "value": "Salada",
+        "category": "Comidas"
+      }
+    ],
+    [
+      {
+        "value": "Doutor",
+        "category": "Profissões"
+      },
+      {
+        "value": "Professor",
+        "category": "Profissões"
+      },
+      {
+        "value": "Engenheiro",
+        "category": "Profissões"
+      },
+      {
+        "value": "Músico",
+        "category": "Profissões"
+      }
+    ],
+    [
+      {
+        "value": "Facebook",
+        "category": "Redes Sociais"
+      },
+      {
+        "value": "Instagram",
+        "category": "Redes Sociais"
+      },
+      {
+        "value": "Twitter",
+        "category": "Redes Sociais"
+      },
+      {
+        "value": "LinkedIn",
+        "category": "Redes Sociais"
+      }
+    ],
+    [
+      {
+        "value": "Nadar",
+        "category": "Atividades Físicas"
+      },
+      {
+        "value": "Correr",
+        "category": "Atividades Físicas"
+      },
+      {
+        "value": "Yoga",
+        "category": "Atividades Físicas"
+      },
+      {
+        "value": "Ciclismo",
+        "category": "Atividades Físicas"
+      }
+    ],
+    [
+      {
+        "value": "Astronauta",
+        "category": "Ocupações"
+      },
+      {
+        "value": "Bombeiro",
+        "category": "Ocupações"
+      },
+      {
+        "value": "Advogado",
+        "category": "Ocupações"
+      },
+      {
+        "value": "Cozinheiro",
+        "category": "Ocupações"
+      }
+    ],
+    [
+      {
+        "value": "Telescópio",
+        "category": "Instrumentos Científicos"
+      },
+      {
+        "value": "Microscópio",
+        "category": "Instrumentos Científicos"
+      },
+      {
+        "value": "Balança",
+        "category": "Instrumentos Científicos"
+      },
+      {
+        "value": "Termômetro",
+        "category": "Instrumentos Científicos"
+      }
+    ],
+    [
+      {
+        "value": "Banana",
+        "category": "Frutas Tropicais"
+      },
+      {
+        "value": "Manga",
+        "category": "Frutas Tropicais"
+      },
+      {
+        "value": "Coco",
+        "category": "Frutas Tropicais"
+      },
+      {
+        "value": "Abacate",
+        "category": "Frutas Tropicais"
+      }
+    ],
+    [
+      {
+        "value": "Elefante",
+        "category": "Animais Selvagens"
+      },
+      {
+        "value": "Leão",
+        "category": "Animais Selvagens"
+      },
+      {
+        "value": "Rinoceronte",
+        "category": "Animais Selvagens"
+      },
+      {
+        "value": "Tigre",
+        "category": "Animais Selvagens"
+      }
+    ],
+    [
+      {
+        "value": "Roxo",
+        "category": "Cores Vivas"
+      },
+      {
+        "value": "Turquesa",
+        "category": "Cores Vivas"
+      },
+      {
+        "value": "Magenta",
+        "category": "Cores Vivas"
+      },
+      {
+        "value": "Lima",
+        "category": "Cores Vivas"
+      }
+    ],
+    [
+      {
+        "value": "Helicóptero",
+        "category": "Aeronaves"
+      },
+      {
+        "value": "Foguete",
+        "category": "Aeronaves"
+      },
+      {
+        "value": "Dirigível",
+        "category": "Aeronaves"
+      },
+      {
+        "value": "Jato",
+        "category": "Aeronaves"
+      }
+    ],
+    [
+      {
+        "value": "Realidade Virtual",
+        "category": "Inovações Tecnológicas"
+      },
+      {
+        "value": "Nanotecnologia",
+        "category": "Inovações Tecnológicas"
+      },
+      {
+        "value": "Biometria",
+        "category": "Inovações Tecnológicas"
+      },
+      {
+        "value": "Inteligência Artificial",
+        "category": "Inovações Tecnológicas"
+      }
+    ],
+    [
+      {
+        "value": "Cânion",
+        "category": "Formações Geográficas"
+      },
+      {
+        "value": "Península",
+        "category": "Formações Geográficas"
+      },
+      {
+        "value": "Planalto",
+        "category": "Formações Geográficas"
+      },
+      {
+        "value": "Delta",
+        "category": "Formações Geográficas"
+      }
+    ],
+    [
+      {
+        "value": "Trompete",
+        "category": "Instrumentos de Sopro"
+      },
+      {
+        "value": "Flauta",
+        "category": "Instrumentos de Sopro"
+      },
+      {
+        "value": "Saxofone",
+        "category": "Instrumentos de Sopro"
+      },
+      {
+        "value": "Trombone",
+        "category": "Instrumentos de Sopro"
+      }
+    ],
+    [
+      {
+        "value": "Blusa",
+        "category": "Vestuário Feminino"
+      },
+      {
+        "value": "Saia",
+        "category": "Vestuário Feminino"
+      },
+      {
+        "value": "Blazer",
+        "category": "Vestuário Feminino"
+      },
+      {
+        "value": "Vestido de Cocktail",
+        "category": "Vestuário Feminino"
+      }
+    ],
+    [
+      {
+        "value": "Escrivaninha",
+        "category": "Móveis de Escritório"
+      },
+      {
+        "value": "Armário de Arquivo",
+        "category": "Móveis de Escritório"
+      },
+      {
+        "value": "Poltrona",
+        "category": "Móveis de Escritório"
+      },
+      {
+        "value": "Cadeira de Rodas",
+        "category": "Móveis de Escritório"
+      }
+    ],
+    [
+      {
+        "value": "Equinócio",
+        "category": "Eventos Astronômicos"
+      },
+      {
+        "value": "Solstício",
+        "category": "Eventos Astronômicos"
+      },
+      {
+        "value": "Cometa",
+        "category": "Eventos Astronômicos"
+      },
+      {
+        "value": "Eclipse",
+        "category": "Eventos Astronômicos"
+      }
+    ],
+    [
+      {
+        "value": "Ecologia",
+        "category": "Estudos Acadêmicos"
+      },
+      {
+        "value": "Arqueologia",
+        "category": "Estudos Acadêmicos"
+      },
+      {
+        "value": "Sociologia",
+        "category": "Estudos Acadêmicos"
+      },
+      {
+        "value": "Etnografia",
+        "category": "Estudos Acadêmicos"
+      }
+    ],
+    [
+      {
+        "value": "Fermento",
+        "category": "Cozimento"
+      },
+      {
+        "value": "Manteiga",
+        "category": "Cozimento"
+      },
+      {
+        "value": "Levedura",
+        "category": "Cozimento"
+      },
+      {
+        "value": "Chocolate em Pó",
+        "category": "Cozimento"
+      }
+    ],
+    [
+      {
+        "value": "Antártica",
+        "category": "Regiões Polares"
+      },
+      {
+        "value": "Ártico",
+        "category": "Regiões Polares"
+      },
+      {
+        "value": "Groenlândia",
+        "category": "Regiões Polares"
+      },
+      {
+        "value": "Alasca",
+        "category": "Regiões Polares"
+      }
+    ],
+    [
+      {
+        "value": "Médico",
+        "category": "Profissões de Saúde"
+      },
+      {
+        "value": "Enfermeiro",
+        "category": "Profissões de Saúde"
+      },
+      {
+        "value": "Fisioterapeuta",
+        "category": "Profissões de Saúde"
+      },
+      {
+        "value": "Psicólogo",
+        "category": "Profissões de Saúde"
+      }
+    ],
+    [
+      {
+        "value": "TikTok",
+        "category": "Plataformas de Mídia Social"
+      },
+      {
+        "value": "Twitch",
+        "category": "Plataformas de Mídia Social"
+      },
+      {
+        "value": "Snapchat",
+        "category": "Plataformas de Mídia Social"
+      },
+      {
+        "value": "Pinterest",
+        "category": "Plataformas de Mídia Social"
+      }
+    ],
+    [
+      {
+        "value": "Pular Corda",
+        "category": "Atividades Aeróbicas"
+      },
+      {
+        "value": "Zumba",
+        "category": "Atividades Aeróbicas"
+      },
+      {
+        "value": "Aeróbica Aquática",
+        "category": "Atividades Aeróbicas"
+      },
+      {
+        "value": "Kickboxing",
+        "category": "Atividades Aeróbicas"
+      }
+    ],
+    [
+      {
+        "value": "Arquiteto",
+        "category": "Profissões de Design"
+      },
+      {
+        "value": "Designer de Interiores",
+        "category": "Profissões de Design"
+      },
+      {
+        "value": "Paisagista",
+        "category": "Profissões de Design"
+      },
+      {
+        "value": "Designer Gráfico",
+        "category": "Profissões de Design"
+      }
+    ],
+    [
+      {
+        "value": "Microscópio Eletrônico",
+        "category": "Instrumentos Científicos Avançados"
+      },
+      {
+        "value": "Espectrômetro de Massas",
+        "category": "Instrumentos Científicos Avançados"
+      },
+      {
+        "value": "Cromatógrafo Líquido",
+        "category": "Instrumentos Científicos Avançados"
+      },
+      {
+        "value": "Acelerador de Partículas",
+        "category": "Instrumentos Científicos Avançados"
+      }
     ]
   ]
 }
+
