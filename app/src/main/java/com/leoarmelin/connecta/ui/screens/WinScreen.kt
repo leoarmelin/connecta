@@ -16,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -37,6 +38,15 @@ fun WinScreen(
         words.map { it.category }.distinct().sorted()
     }
 
+    val winPhrase = remember(mistakes) {
+        when(mistakes) {
+            0 -> "Você nunca errou! Parabéns!! \uD83E\uDD29"
+            1 -> "Você venceu após apenas 1 erro! \uD83D\uDE04"
+            in 10..20 -> "O importante é persistir! Você venceu após $mistakes erros! \uD83D\uDC4F"
+            else -> "Foi bem difícil, mas você conseguiu após $mistakes erros! Parabéns! \uD83D\uDC4D"
+        }
+    }
+
     BackHandler {
         navController.navigate(Routes.StartScreen)
     }
@@ -54,6 +64,7 @@ fun WinScreen(
                 text = "Você Venceu Hoje!",
                 style = Typography.titleMedium,
                 color = MaterialTheme.colorScheme.onBackground,
+                textAlign = TextAlign.Center,
                 modifier = Modifier
                     .clickable {
                         navController.navigate(Routes.GameScreen)
@@ -62,9 +73,10 @@ fun WinScreen(
         }
         item {
             Text(
-                text = "Você venceu após $mistakes erros.",
+                text = winPhrase,
                 style = Typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onBackground,
+                textAlign = TextAlign.Center,
             )
         }
         item {
