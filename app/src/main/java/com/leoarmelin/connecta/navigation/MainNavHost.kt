@@ -22,6 +22,7 @@ fun MainNavHost(
         composable(StartScreen) {
             StartScreen(
                 navController = navController,
+                wordsViewModel = wordsViewModel
             )
         }
 
@@ -33,7 +34,10 @@ fun MainNavHost(
         }
 
         composable(WinScreen) {
-            WinScreen(navController)
+            WinScreen(
+                navController,
+                wordsViewModel = wordsViewModel
+            )
         }
     }
 }
