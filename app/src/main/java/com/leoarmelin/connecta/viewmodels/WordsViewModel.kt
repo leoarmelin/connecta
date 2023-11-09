@@ -23,10 +23,10 @@ class WordsViewModel(
 ) : ViewModel() {
     private val _lastDayPlayed = MutableStateFlow<LocalDate?>(null)
 
-    private val _hasPlayedToday = _lastDayPlayed.map { lastDayPlayed ->
-        lastDayPlayed == LocalDate.now()
-    }
-    val hasPlayedToday get() = _hasPlayedToday
+    //private val _hasPlayedToday = _lastDayPlayed.map { lastDayPlayed ->
+    //    lastDayPlayed == LocalDate.now()
+    //}
+    //val hasPlayedToday get() = _hasPlayedToday
 
     private val _words = MutableStateFlow<List<Word>>(emptyList())
     val words get() = _words.asStateFlow()
@@ -161,6 +161,6 @@ class WordsViewModel(
 
     companion object {
         const val WORDS_PER_CATEGORY = 4
-        const val CATEGORIES_PER_GAME = 5
+        const val CATEGORIES_PER_GAME = 2
     }
 }

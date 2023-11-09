@@ -1,6 +1,7 @@
 package com.leoarmelin.connecta.ui.components
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
@@ -20,6 +21,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.leoarmelin.connecta.models.Word
 import com.leoarmelin.connecta.ui.theme.Typography
@@ -28,13 +30,14 @@ import com.leoarmelin.connecta.ui.theme.Typography
 fun FinishedSection(
     finishedWords: List<Word>,
     lazyListScope: LazyListScope,
-    sections: List<String>
+    sections: List<String>,
+    wordsVisibilityAnimSpec: FiniteAnimationSpec<IntOffset>
 ) {
     lazyListScope.items(sections, key = { it }) { section ->
         AnimatedVisibility(
             visible = finishedWords.any { it.category == section },
-            enter = slideInVertically() + fadeIn(),
-            exit = slideOutVertically() + fadeOut()
+            enter = slideInVertically(animationSpec = wordsVisibilityAnimSpec) + fadeIn(),
+            exit = slideOutVertically(animationSpec = wordsVisibilityAnimSpec) + fadeOut()
         ) {
             Column(
                 modifier = Modifier
