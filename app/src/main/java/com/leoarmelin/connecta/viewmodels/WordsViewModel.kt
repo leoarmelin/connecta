@@ -9,10 +9,7 @@ import com.leoarmelin.connecta.repositories.WordsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDate
@@ -38,8 +35,8 @@ class WordsViewModel(
     private val _finishedWords = MutableStateFlow<List<Word>>(emptyList())
     val finishedWords get() = _finishedWords.asStateFlow()
 
-    private val _tries = MutableStateFlow(0)
-    val tries get() = _tries.asStateFlow()
+    private val _mistakes = MutableStateFlow(0)
+    val mistakes get() = _mistakes.asStateFlow()
 
     private val _hasWon = MutableStateFlow(false)
     val hasWon get() = _hasWon.asStateFlow()
@@ -78,11 +75,12 @@ class WordsViewModel(
                     newList.addAll(selectedWords)
                     _wrongWords.value = newList
 
+                    addOneMoreMistake()
+
                     // Clear wrong words after 500ms
                     delay(500)
                     _wrongWords.value = emptyList()
                 }
-                addOneMoreTry()
                 _selectedWords.value = emptyList()
             }
         }
@@ -102,11 +100,11 @@ class WordsViewModel(
         if (savedDay != now) {
             _lastDayPlayed.value = now
             sharedPreferencesHelper.saveDay(now)
-            sharedPreferencesHelper.saveTries(0)
+            sharedPreferencesHelper.saveMistakes(0)
             sharedPreferencesHelper.saveHasWon(false)
         } else {
             _lastDayPlayed.value = savedDay
-            _tries.value = sharedPreferencesHelper.getTries()
+            _mistakes.value = sharedPreferencesHelper.getMistakes()
             _hasWon.value = sharedPreferencesHelper.getHasWon()
         }
     }
@@ -131,9 +129,9 @@ class WordsViewModel(
         }
     }
 
-    private fun addOneMoreTry() {
-        _tries.value += 1
-        sharedPreferencesHelper.saveTries(_tries.value)
+    private fun addOneMoreMistake() {
+        _mistakes.value += 1
+        sharedPreferencesHelper.saveMistakes(_mistakes.value)
     }
 
     private fun updateHasWonValue(value: Boolean) {

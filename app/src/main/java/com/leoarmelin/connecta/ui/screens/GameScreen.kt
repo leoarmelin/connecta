@@ -9,7 +9,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxSize
@@ -44,8 +43,7 @@ fun GameScreen(
     val correctWords by wordsViewModel.correctWords.collectAsState()
     val wrongWords by wordsViewModel.wrongWords.collectAsState()
     val finishedWords by wordsViewModel.finishedWords.collectAsState()
-    val hasWon by wordsViewModel.hasWon.collectAsState()
-    val tries by wordsViewModel.tries.collectAsState()
+    val tries by wordsViewModel.mistakes.collectAsState()
     val sections = remember(finishedWords) {
         words.map { it.category }.distinct().sorted()
     }
@@ -64,27 +62,7 @@ fun GameScreen(
     ) {
         item {
             Text(
-                text = "Game Screen",
-                style = Typography.titleMedium,
-                color = mtc.onBackground,
-                modifier = Modifier
-                    .clickable {
-                        navController.popBackStack()
-                    }
-            )
-        }
-
-        item {
-            Text(
-                text = "Has won: $hasWon",
-                style = Typography.bodyLarge,
-                color = mtc.onBackground,
-            )
-        }
-
-        item {
-            Text(
-                text = "Tries: $tries",
+                text = "Erros: $tries",
                 style = Typography.bodyLarge,
                 color = mtc.onBackground,
             )

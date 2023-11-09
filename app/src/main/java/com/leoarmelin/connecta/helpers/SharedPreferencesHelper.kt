@@ -17,12 +17,12 @@ class SharedPreferencesHelper(context: Context) {
         return LocalDate.ofEpochDay(epochDay.toLong())
     }
 
-    fun saveTries(value: Int) {
-        sharedPreferences.edit().putInt(TRIES, value).apply()
+    fun saveMistakes(value: Int) {
+        sharedPreferences.edit().putInt(MISTAKES, value).apply()
     }
 
-    fun getTries(): Int {
-        return sharedPreferences.getInt(TRIES, 0)
+    fun getMistakes(): Int {
+        return sharedPreferences.getInt(MISTAKES, 0)
     }
 
     fun saveHasWon(value: Boolean) {
@@ -35,7 +35,7 @@ class SharedPreferencesHelper(context: Context) {
 
     companion object {
         const val DAY = "day"
-        const val TRIES = "tries"
+        const val MISTAKES = "mistakes"
         const val HAS_WON = "hasWon"
     }
 }
