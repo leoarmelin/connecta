@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -26,6 +27,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.leoarmelin.connecta.navigation.Routes.WinScreen
 import com.leoarmelin.connecta.ui.components.FinishedSection
 import com.leoarmelin.connecta.ui.components.WordPill
 import com.leoarmelin.connecta.ui.components.WordPillState
@@ -56,6 +58,11 @@ fun GameScreen(
     }
     val visibilitySpecDuration = remember { 400 }
     val wordsVisibilityAnimSpec: FiniteAnimationSpec<IntOffset> = remember { tween(visibilitySpecDuration) }
+
+    LaunchedEffect(hasWon) {
+        if (!hasWon) return@LaunchedEffect
+        navController.navigate(WinScreen)
+    }
 
     LazyColumn(
         modifier = Modifier
