@@ -25,8 +25,17 @@ class SharedPreferencesHelper(context: Context) {
         return sharedPreferences.getInt(TRIES, 0)
     }
 
+    fun saveHasWon(value: Boolean) {
+        sharedPreferences.edit().putBoolean(HAS_WON, value).apply()
+    }
+
+    fun getHasWon(): Boolean {
+        return sharedPreferences.getBoolean(HAS_WON, false)
+    }
+
     companion object {
         const val DAY = "day"
         const val TRIES = "tries"
+        const val HAS_WON = "hasWon"
     }
 }

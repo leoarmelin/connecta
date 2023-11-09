@@ -23,11 +23,6 @@ class WordsViewModel(
 ) : ViewModel() {
     private val _lastDayPlayed = MutableStateFlow<LocalDate?>(null)
 
-    //private val _hasPlayedToday = _lastDayPlayed.map { lastDayPlayed ->
-    //    lastDayPlayed == LocalDate.now()
-    //}
-    //val hasPlayedToday get() = _hasPlayedToday
-
     private val _words = MutableStateFlow<List<Word>>(emptyList())
     val words get() = _words.asStateFlow()
 
@@ -46,13 +41,8 @@ class WordsViewModel(
     private val _tries = MutableStateFlow(0)
     val tries get() = _tries.asStateFlow()
 
-    val hasWon = _finishedWords.map { finishedWords ->
-        finishedWords.size == _words.value.size
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000),
-        initialValue = false,
-    )
+    private val _hasWon = MutableStateFlow(false)
+    val hasWon get() = _hasWon.asStateFlow()
 
     init {
         initializeGame()
@@ -96,19 +86,28 @@ class WordsViewModel(
                 _selectedWords.value = emptyList()
             }
         }
+
+        viewModelScope.launch {
+            _finishedWords.collect { finishedWords ->
+                if (finishedWords.isEmpty()) return@collect
+                updateHasWonValue(finishedWords.size == _words.value.size)
+            }
+        }
     }
 
     private fun initializeGame() {
         val savedDay = sharedPreferencesHelper.getDay()
         val now = LocalDate.now()
-        
+
         if (savedDay != now) {
             _lastDayPlayed.value = now
             sharedPreferencesHelper.saveDay(now)
             sharedPreferencesHelper.saveTries(0)
+            sharedPreferencesHelper.saveHasWon(false)
         } else {
             _lastDayPlayed.value = savedDay
             _tries.value = sharedPreferencesHelper.getTries()
+            _hasWon.value = sharedPreferencesHelper.getHasWon()
         }
     }
 
@@ -135,6 +134,11 @@ class WordsViewModel(
     private fun addOneMoreTry() {
         _tries.value += 1
         sharedPreferencesHelper.saveTries(_tries.value)
+    }
+
+    private fun updateHasWonValue(value: Boolean) {
+        _hasWon.value = value
+        sharedPreferencesHelper.saveHasWon(value)
     }
 
     fun selectWord(word: Word) {
