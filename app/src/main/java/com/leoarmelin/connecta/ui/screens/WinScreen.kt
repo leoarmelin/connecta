@@ -31,6 +31,7 @@ fun WinScreen(
     wordsViewModel: WordsViewModel
 ) {
     val words by wordsViewModel.words.collectAsState()
+    val mistakes by wordsViewModel.mistakes.collectAsState()
 
     val sections = remember(words) {
         words.map { it.category }.distinct().sorted()
@@ -61,7 +62,7 @@ fun WinScreen(
         }
         item {
             Text(
-                text = "Você venceu após X erros.",
+                text = "Você venceu após $mistakes erros.",
                 style = Typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onBackground,
             )

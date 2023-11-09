@@ -51,6 +51,7 @@ fun GameScreen(
     val wrongWords by wordsViewModel.wrongWords.collectAsState()
     val finishedWords by wordsViewModel.finishedWords.collectAsState()
     val mistakes by wordsViewModel.mistakes.collectAsState()
+    val hasWon by wordsViewModel.hasWon.collectAsState()
     val sections = remember(finishedWords) {
         words.map { it.category }.distinct().sorted()
     }
@@ -60,7 +61,8 @@ fun GameScreen(
         }
     }
     val visibilitySpecDuration = remember { 400 }
-    val wordsVisibilityAnimSpec: FiniteAnimationSpec<IntOffset> = remember { tween(visibilitySpecDuration) }
+    val wordsVisibilityAnimSpec: FiniteAnimationSpec<IntOffset> =
+        remember { tween(visibilitySpecDuration) }
 
     LaunchedEffect(hasWon) {
         if (!hasWon) return@LaunchedEffect
@@ -99,8 +101,14 @@ fun GameScreen(
                     AnimatedVisibility(
                         visible = wordsToDisplay.contains(word),
                         enter = slideInVertically(animationSpec = wordsVisibilityAnimSpec) + fadeIn(),
-                        exit = slideOutVertically(animationSpec = wordsVisibilityAnimSpec, targetOffsetY = { it }) + fadeOut(),
-                        modifier = Modifier.animateItemPlacement(animationSpec = tween(visibilitySpecDuration))
+                        exit = slideOutVertically(
+                            animationSpec = wordsVisibilityAnimSpec,
+                            targetOffsetY = { it }) + fadeOut(),
+                        modifier = Modifier.animateItemPlacement(
+                            animationSpec = tween(
+                                visibilitySpecDuration
+                            )
+                        )
                     ) {
                         WordPill(
                             wordValue = word.value,
@@ -121,6 +129,11 @@ fun GameScreen(
             }
         }
 
-        FinishedSection(finishedWords = finishedWords, sections = sections, lazyListScope = this, wordsVisibilityAnimSpec = wordsVisibilityAnimSpec)
+        FinishedSection(
+            finishedWords = finishedWords,
+            sections = sections,
+            lazyListScope = this,
+            wordsVisibilityAnimSpec = wordsVisibilityAnimSpec
+        )
     }
 }

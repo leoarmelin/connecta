@@ -52,21 +52,13 @@ fun StartScreen(
         Text(
             text = "Connecta",
             style = Typography.titleMedium,
-            color = mtc.onBackground,
-            modifier = Modifier
-                .clickable {
-                    navController.navigate(GameScreen)
-                }
+            color = mtc.onBackground
         )
 
         Text(
             text = "Forme 5 grupos de 4 palavras",
             style = Typography.bodyLarge,
-            color = mtc.onBackground,
-            modifier = Modifier
-                .clickable {
-                    navController.navigate(GameScreen)
-                }
+            color = mtc.onBackground
         )
 
         AppButton(
@@ -76,7 +68,7 @@ fun StartScreen(
                 .padding(horizontal = 16.dp)
                 .padding(top = 40.dp)
         ) {
-            navController.navigate(if (hasWon) GameScreen else WinScreen)
+            navController.navigate(if (!hasWon) GameScreen else WinScreen)
         }
     }
 }
