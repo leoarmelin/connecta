@@ -161,6 +161,6 @@ class WordsViewModel(
 
     companion object {
         const val WORDS_PER_CATEGORY = 4
-        const val CATEGORIES_PER_GAME = 2
+        const val CATEGORIES_PER_GAME = 5
     }
 }
