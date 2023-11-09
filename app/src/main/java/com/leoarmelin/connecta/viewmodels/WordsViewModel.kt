@@ -55,7 +55,7 @@ class WordsViewModel(
     )
 
     init {
-        initializeDate()
+        initializeGame()
 
         viewModelScope.launch {
             _lastDayPlayed.collect { lastDayPlayed ->
@@ -92,20 +92,23 @@ class WordsViewModel(
                     delay(500)
                     _wrongWords.value = emptyList()
                 }
-                _tries.value += 1
+                addOneMoreTry()
                 _selectedWords.value = emptyList()
             }
         }
     }
 
-    private fun initializeDate() {
+    private fun initializeGame() {
         val savedDay = sharedPreferencesHelper.getDay()
         val now = LocalDate.now()
+        
         if (savedDay != now) {
             _lastDayPlayed.value = now
             sharedPreferencesHelper.saveDay(now)
+            sharedPreferencesHelper.saveTries(0)
         } else {
             _lastDayPlayed.value = savedDay
+            _tries.value = sharedPreferencesHelper.getTries()
         }
     }
 
@@ -127,6 +130,11 @@ class WordsViewModel(
                 is Result.Error -> {}
             }
         }
+    }
+
+    private fun addOneMoreTry() {
+        _tries.value += 1
+        sharedPreferencesHelper.saveTries(_tries.value)
     }
 
     fun selectWord(word: Word) {
