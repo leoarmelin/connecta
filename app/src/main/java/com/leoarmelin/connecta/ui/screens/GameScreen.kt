@@ -9,9 +9,12 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
@@ -21,6 +24,8 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -43,7 +48,7 @@ fun GameScreen(
     val correctWords by wordsViewModel.correctWords.collectAsState()
     val wrongWords by wordsViewModel.wrongWords.collectAsState()
     val finishedWords by wordsViewModel.finishedWords.collectAsState()
-    val tries by wordsViewModel.mistakes.collectAsState()
+    val mistakes by wordsViewModel.mistakes.collectAsState()
     val sections = remember(finishedWords) {
         words.map { it.category }.distinct().sorted()
     }
@@ -61,11 +66,20 @@ fun GameScreen(
             .padding(8.dp)
     ) {
         item {
-            Text(
-                text = "Erros: $tries",
-                style = Typography.bodyLarge,
-                color = mtc.onBackground,
-            )
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                Text(
+                    text = "Erros: ",
+                    style = Typography.bodyLarge,
+                    color = mtc.onBackground,
+                    fontWeight = FontWeight.Bold
+                )
+
+                Text(
+                    text = "$mistakes",
+                    style = Typography.bodyLarge,
+                    color = mtc.onBackground
+                )
+            }
         }
 
         item {
