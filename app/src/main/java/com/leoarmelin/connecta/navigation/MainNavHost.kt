@@ -6,8 +6,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.leoarmelin.connecta.navigation.Routes.GameScreen
 import com.leoarmelin.connecta.navigation.Routes.StartScreen
+import com.leoarmelin.connecta.navigation.Routes.WinScreen
 import com.leoarmelin.connecta.ui.screens.GameScreen
 import com.leoarmelin.connecta.ui.screens.StartScreen
+import com.leoarmelin.connecta.ui.screens.WinScreen
 import com.leoarmelin.connecta.viewmodels.WordsViewModel
 
 @Composable
@@ -20,12 +22,20 @@ fun MainNavHost(
         composable(StartScreen) {
             StartScreen(
                 navController = navController,
+                wordsViewModel = wordsViewModel
             )
         }
 
         composable(GameScreen) {
             GameScreen(
                 navController = navController,
+                wordsViewModel = wordsViewModel
+            )
+        }
+
+        composable(WinScreen) {
+            WinScreen(
+                navController,
                 wordsViewModel = wordsViewModel
             )
         }
