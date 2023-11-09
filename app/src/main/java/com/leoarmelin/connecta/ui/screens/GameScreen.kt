@@ -1,5 +1,6 @@
 package com.leoarmelin.connecta.ui.screens
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.FiniteAnimationSpec
@@ -26,7 +27,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -68,6 +68,8 @@ fun GameScreen(
         if (!hasWon) return@LaunchedEffect
         navController.navigate(WinScreen)
     }
+
+    BackHandler {}
 
     LazyColumn(
         modifier = Modifier

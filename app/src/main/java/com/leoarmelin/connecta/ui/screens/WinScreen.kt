@@ -1,5 +1,6 @@
 package com.leoarmelin.connecta.ui.screens
 
+import android.content.Intent
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
@@ -16,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -31,6 +33,7 @@ fun WinScreen(
     navController: NavController = rememberNavController(),
     wordsViewModel: WordsViewModel
 ) {
+    val context = LocalContext.current
     val words by wordsViewModel.words.collectAsState()
     val mistakes by wordsViewModel.mistakes.collectAsState()
 
@@ -46,6 +49,14 @@ fun WinScreen(
             else -> "Foi bem difícil, mas você conseguiu após $mistakes erros! Parabéns! \uD83D\uDC4D"
         }
     }
+    val sharePhrase = remember(mistakes) {
+        when(mistakes) {
+            0 -> "Venci hoje sem nenhum erro! Viva o Connecta!! \uD83E\uDD29"
+            1 -> "Venci hoje com 1 só erro! Somos todos Connecta!! \uD83D\uDE04"
+            in 10..20 -> "O que vale é tentar. Venci hoje com $mistakes erros! Vai Connecta!! \uD83D\uDC4F"
+            else -> "Foi bem difícil, mas eu consegui após $mistakes erros! Da próxima vai Connecta!! \uD83D\uDC4D"
+        }
+    }
 
     BackHandler {
         navController.navigate(Routes.StartScreen)
@@ -56,9 +67,6 @@ fun WinScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        item {
-
-        }
         item {
             Text(
                 text = "Você Venceu Hoje!",
@@ -87,7 +95,13 @@ fun WinScreen(
                     .padding(horizontal = 16.dp)
                     .padding(top = 40.dp)
             ) {
-                //TODO: SHARE
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, sharePhrase)
+                    type = "text/plain"
+                }
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                context.startActivity(shareIntent)
             }
         }
 
