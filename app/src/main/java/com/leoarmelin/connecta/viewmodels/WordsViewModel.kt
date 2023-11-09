@@ -14,13 +14,19 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.LocalDate
 
 class WordsViewModel(
     private val wordsRepository: WordsRepository = WordsRepository(),
     private val sharedPreferencesHelper: SharedPreferencesHelper
 ) : ViewModel() {
-    private val _lastDayPlayed = MutableStateFlow<LocalDate>(LocalDate.now())
+    private val _lastDayPlayed = MutableStateFlow<LocalDate?>(null)
+
+    private val _hasPlayedToday = _lastDayPlayed.map { lastDayPlayed ->
+        lastDayPlayed == LocalDate.now()
+    }
+    val hasPlayedToday get() = _hasPlayedToday
 
     private val _words = MutableStateFlow<List<Word>>(emptyList())
     val words get() = _words.asStateFlow()
@@ -50,7 +56,15 @@ class WordsViewModel(
 
     init {
         initializeDate()
-        getDailyWords()
+
+        viewModelScope.launch {
+            _lastDayPlayed.collect { lastDayPlayed ->
+                if (lastDayPlayed == null) return@collect
+                withContext(Dispatchers.IO) {
+                    getDailyWords(lastDayPlayed)
+                }
+            }
+        }
 
         viewModelScope.launch {
             _selectedWords.collect { selectedWords ->
@@ -95,26 +109,25 @@ class WordsViewModel(
         }
     }
 
-    private fun getDailyWords() {
+    private suspend fun getDailyWords(lastDayPlayed: LocalDate) {
         if (_words.value.isNotEmpty()) return
 
-        viewModelScope.launch(Dispatchers.IO) {
-            wordsRepository.getDailyWords().collect { result ->
-                when (result) {
-                    is Result.Loading -> {}
-                    is Result.Success -> {
-                        _words.value = sliceListOfWordsBy(result.data.words)
-                        println(_words.value)
-                    }
-
-                    is Result.Error -> {}
+        wordsRepository.getDailyWords().collect { result ->
+            when (result) {
+                is Result.Loading -> {}
+                is Result.Success -> {
+                    val categoriesAmount = result.data.words.size
+                    val startIndex =
+                        (lastDayPlayed.toEpochDay() % (categoriesAmount - CATEGORIES_PER_GAME)).toInt()
+                    val endIndex = startIndex + CATEGORIES_PER_GAME
+                    _words.value =
+                        result.data.words.subList(startIndex, endIndex).flatten().shuffled()
                 }
+
+                is Result.Error -> {}
             }
         }
     }
-
-    private fun sliceListOfWordsBy(words: List<List<Word>>): List<Word> =
-        words.shuffled().take(CATEGORIES_PER_GAME).flatten().shuffled()
 
     fun selectWord(word: Word) {
         val selectedWordsCountIsMax = _selectedWords.value.size >= WORDS_PER_CATEGORY
