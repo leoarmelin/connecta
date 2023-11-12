@@ -1,671 +1,466 @@
 {
-  "words": [
+  "categories": [
+    {
+      "id": "11245289-a5b9-4ac9-af29-4f173f85ea91",
+      "name": "Frutas",
+      "words": ["Maçã", "Abacaxi", "Pera", "Laranja"]
+    },
+    {
+      "id": "afef2d8e-6d0d-48d0-bee9-8709c1ebb9e2",
+      "name": "Animais",
+      "words": ["Cachorro", "Gato", "Pássaro", "Tartaruga"]
+    },
+    {
+      "id": "76996268-af63-472f-8884-988e3757825a",
+      "name": "Cores",
+      "words": ["Azul", "Amarelo", "Verde", "Vermelho"]
+    },
+    {
+      "id": "6d2c50ad-bdf4-43e5-b63b-d39bb1eeb57e",
+      "name": "Veículos",
+      "words": ["Carro", "Bicicleta", "Avião", "Barco"]
+    },
+    {
+      "id": "cfe35692-809b-4c1c-bf1c-4d020b43934e",
+      "name": "Tecnologia",
+      "words": ["Computador", "Smartphone", "Internet", "Robô"]
+    },
+    {
+      "id": "6deb6e47-36ab-4cca-b7f5-1d477d08dace",
+      "name": "Geografia",
+      "words": ["Montanha", "Rio", "Deserto", "Floresta"]
+    },
+    {
+      "id": "e3007948-e7d2-443e-a44c-008e3de66f37",
+      "name": "Instrumentos Musicais",
+      "words": ["Violino", "Piano", "Bateria", "Guitarra"]
+    },
+    {
+      "id": "6df12953-bbc6-4159-bab8-fbb1098fbaac",
+      "name": "Roupas",
+      "words": ["Camiseta", "Calça", "Sapato", "Vestido"]
+    },
+    {
+      "id": "2188598e-acf8-4074-9f11-c1261d0fbfbc",
+      "name": "Mobília",
+      "words": ["Sofá", "Mesa", "Cama", "Cadeira"]
+    },
+    {
+      "id": "3d8043c3-d3a8-4996-a884-49f2208798b3",
+      "name": "Estações do Ano",
+      "words": ["Primavera", "Verão", "Outono", "Inverno"]
+    },
+    {
+      "id": "30e4b7cc-1548-45a2-856d-e12fcc6116a8",
+      "name": "Ciências",
+      "words": ["Astronomia", "Biologia", "Física", "Química"]
+    },
+    {
+      "id": "ac598e4e-2941-4a86-b53d-49d70055c46e",
+      "name": "Ingredientes",
+      "words": ["Açúcar", "Sal", "Farinha", "Óleo"]
+    },
+    {
+      "id": "28302c4f-c185-40b1-8585-2f6f0bf0808d",
+      "name": "Continentes",
+      "words": ["América do Norte", "Europa", "África", "Ásia"]
+    },
+    {
+      "id": "202a408c-39ee-48ee-b2f1-d4d9664af8ee",
+      "name": "Comidas",
+      "words": ["Pizza", "Hambúrguer", "Sushi", "Salada"]
+    },
+    {
+      "id": "3284d586-4f03-4c85-8228-0dfecc52ec7b",
+      "name": "Profissões",
+      "words": ["Doutor", "Professor", "Engenheiro", "Músico"]
+    },
+    {
+      "id": "c65e99d1-7a6c-48db-b0c3-16ae646d0b9a",
+      "name": "Redes Sociais",
+      "words": ["Facebook", "Instagram", "Twitter", "LinkedIn"]
+    },
+    {
+      "id": "70f6ae6d-c05b-4410-925e-2b8710d4986a",
+      "name": "Atividades Físicas",
+      "words": ["Nadar", "Correr", "Yoga", "Ciclismo"]
+    },
+    {
+      "id": "f97e8c44-cec8-4435-8d3a-b183dc3f165b",
+      "name": "Ocupações",
+      "words": ["Astronauta", "Bombeiro", "Advogado", "Cozinheiro"]
+    },
+    {
+      "id": "358c934d-542e-4699-8be4-71a06f346588",
+      "name": "Instrumentos Científicos",
+      "words": ["Telescópio", "Microscópio", "Balança", "Termômetro"]
+    },
+    {
+      "id": "0adf78ff-2839-451c-b7af-532f1b56719b",
+      "name": "Frutas Tropicais",
+      "words": ["Banana", "Manga", "Coco", "Abacate"]
+    },
+    {
+      "id": "3c0cbe4d-5cd8-4fc9-8248-a9ebf404c079",
+      "name": "Animais Selvagens",
+      "words": ["Elefante", "Leão", "Rinoceronte", "Tigre"]
+    },
+    {
+      "id": "0fe88218-b634-4ebe-a4b9-fea906174ff2",
+      "name": "Cores Vivas",
+      "words": ["Roxo", "Turquesa", "Magenta", "Lima"]
+    },
+    {
+      "id": "a4df06bb-df67-4d5d-bfad-7a27c4aeb438",
+      "name": "Aeronaves",
+      "words": ["Helicóptero", "Foguete", "Dirigível", "Jato"]
+    },
+    {
+      "id": "3cc483e4-2cd3-4c76-8087-2d90ae2682cb",
+      "name": "Inovações Tecnológicas",
+      "words": [
+        "Realidade Virtual",
+        "Nanotecnologia",
+        "Biometria",
+        "Inteligência Artificial"
+      ]
+    },
+    {
+      "id": "e0fb2843-a179-4153-8aec-1ceded47adda",
+      "name": "Formações Geográficas",
+      "words": ["Cânion", "Península", "Planalto", "Delta"]
+    },
+    {
+      "id": "9363175e-a133-497a-a8a9-4feb6928392e",
+      "name": "Instrumentos de Sopro",
+      "words": ["Trompete", "Flauta", "Saxofone", "Trombone"]
+    },
+    {
+      "id": "40ac2584-e992-482a-a172-5692e7eb3830",
+      "name": "Vestuário Feminino",
+      "words": ["Blusa", "Saia", "Blazer", "Vestido de Cocktail"]
+    },
+    {
+      "id": "c527ddbe-7bc8-40e8-a648-3a8c579d7093",
+      "name": "Móveis de Escritório",
+      "words": [
+        "Escrivaninha",
+        "Armário de Arquivo",
+        "Poltrona",
+        "Cadeira de Rodas"
+      ]
+    },
+    {
+      "id": "8ad828b0-1412-48d8-8c21-504339c82bf9",
+      "name": "Eventos Astronômicos",
+      "words": ["Equinócio", "Solstício", "Cometa", "Eclipse"]
+    },
+    {
+      "id": "80b573a9-8b99-4f6c-8480-76ccc4b1f5d3",
+      "name": "Estudos Acadêmicos",
+      "words": ["Ecologia", "Arqueologia", "Sociologia", "Etnografia"]
+    },
+    {
+      "id": "bca46722-72cc-4a4a-b3ec-0a394f78b7e0",
+      "name": "Cozimento",
+      "words": ["Fermento", "Manteiga", "Levedura", "Chocolate em Pó"]
+    },
+    {
+      "id": "ed7ca10b-1ace-44ef-9352-e82a068d18e4",
+      "name": "Regiões Polares",
+      "words": ["Antártica", "Ártico", "Groenlândia", "Alasca"]
+    },
+    {
+      "id": "16215e63-a2cd-4a85-9c17-7e1204307561",
+      "name": "Profissões de Saúde",
+      "words": ["Médico", "Enfermeiro", "Fisioterapeuta", "Psicólogo"]
+    },
+    {
+      "id": "306c3345-abd3-4d0a-a2bd-0c0c06bc0081",
+      "name": "Plataformas de Mídia Social",
+      "words": ["TikTok", "Twitch", "Snapchat", "Pinterest"]
+    },
+    {
+      "id": "716bb092-514b-4350-88de-184b9e226c56",
+      "name": "Atividades Aeróbicas",
+      "words": ["Pular Corda", "Zumba", "Aeróbica Aquática", "Kickboxing"]
+    },
+    {
+      "id": "b8037966-1857-4da0-8a4e-d4e6b2ab6fed",
+      "name": "Profissões de Design",
+      "words": [
+        "Arquiteto",
+        "Designer de Interiores",
+        "Paisagista",
+        "Designer Gráfico"
+      ]
+    },
+    {
+      "id": "49b0993d-c6f4-48c1-9d58-26a20b65ba75",
+      "name": "Instrumentos Científicos Avançados",
+      "words": [
+        "Microscópio Eletrônico",
+        "Espectrômetro de Massas",
+        "Cromatógrafo Líquido",
+        "Acelerador de Partículas"
+      ]
+    },
+    {
+      "id": "f73d6b5e-e441-4e53-aea1-33252df1fcc3",
+      "name": "Frutas Exóticas",
+      "words": ["Kiwi", "Pêssego", "Rambutã", "Maracujá"]
+    },
+    {
+      "id": "3853a52f-0e4e-4710-92f8-3c6dfa9f9016",
+      "name": "Animais de Listras",
+      "words": ["Zebra", "Panda", "Tigre Branco", "Cavalo Zebroide"]
+    },
+    {
+      "id": "0b3f2b40-9803-4982-8abc-0cf19e52913c",
+      "name": "Cores do Arco-Íris",
+      "words": ["Índigo", "Violeta", "Anil", "Laranja Queimado"]
+    },
+    {
+      "id": "48231675-c261-4236-a7d0-4ea413e633d2",
+      "name": "Dirigíveis",
+      "words": ["Blimp", "Glider", "Balão de Ar Quente", "Zepelim"]
+    },
+    {
+      "id": "c3273a75-67a8-4882-a163-8d5efb198075",
+      "name": "Tecnologias Emergentes",
+      "words": [
+        "Realidade Aumentada",
+        "Blockchain",
+        "Impressão 3D",
+        "Computação Quântica"
+      ]
+    },
+    {
+      "id": "1c41c846-2ccb-4073-a4a6-687f9ee6a40c",
+      "name": "Formações Geológicas",
+      "words": ["Caverna", "Atol", "Cânion Subaquático", "Penhasco"]
+    },
+    {
+      "id": "720a8e89-1d9d-4010-bc67-0d05b28e9acb",
+      "name": "Instrumentos de Palheta Dupla",
+      "words": ["Oboé", "Fagote", "Clarinete", "Cromorno"]
+    },
+    {
+      "id": "cc8eb480-67cd-44c4-8cf1-9e417fa19b52",
+      "name": "Moda Feminina",
+      "words": ["Blusa Peplum", "Macacão", "Leggings", "Casaco Oversized"]
+    },
+    {
+      "id": "fd86192d-4876-4f1c-8ad0-8d6a449e0b3f",
+      "name": "Móveis para Sala de Estar",
+      "words": ["Aparador", "Mesa de Centro", "Estante", "Sofá-Cama"]
+    },
+    {
+      "id": "03981c01-634a-4bc7-a20d-889dfaa827f4",
+      "name": "Eventos Astronômicos Anuais",
+      "words": ["Equinócio de Outono", "Lua de Sangue", "Chuva de Meteoros", "Trânsito de Mercúrio"]
+    },
+    {
+      "id": "33fe9ecf-7d10-4ef0-84f3-6db9d3cd6f7e",
+      "name": "Subdisciplinas da Geologia",
+      "words": ["Geologia Ambiental", "Geofísica", "Petrologia", "Geomorfologia"]
+    },
+    {
+      "id": "6883b58b-2951-4e07-b1c5-a4a0aba35e89",
+      "name": "Ingredientes de Panificação",
+      "words": ["Fermento Biológico", "Mel", "Aveia", "Sementes de Chia"]
+    },
+    {
+      "id": "7c8bdd3d-0694-4ddc-a41d-3bdbd4ca9e7d",
+      "name": "Sopas Italianas",
+      "words": ["Minestrone", "Cacciucco", "Pappa al Pomodoro", "Ribollita"]
+    },
+    {
+      "id": "d7330f63-2ccf-496e-8aea-ad53e914fa50",
+      "name": "Profissões da Saúde Nutricional",
+      "words": ["Nutricionista", "Quiroprático", "Dietista", "Terapeuta de Nutrição Holística"]
+    },
+    {
+      "id": "6b01ea96-17a8-49af-bfd5-22bfdf770c4e",
+      "name": "Comunidades Online",
+      "words": ["Reddit", "Discord", "Quora", "Stack Overflow"]
+    },
+    {
+      "id": "9f6e8845-530c-4ca0-984f-be8641991b35",
+      "name": "Esportes Aquáticos",
+      "words": ["Natação Sincronizada", "Pólo Aquático", "Saltos Ornamentais", "Esqui Aquático"]
+    },
+    {
+      "id": "70fbe8ac-c4c7-498f-89f8-0ce0ad764ed1",
+      "name": "Instrumentos Científicos Avançados",
+      "words": ["Microscópio Eletrônico de Transmissão", "Espectrômetro de Ressonância Magnética Nuclear", "Cristalografia de Raios-X", "Microscópio de Força Atômica"]
+    },
+    {
+      "id": "bf4db1bf-7a7d-4735-90dc-bc79ff7bc00d",
+      "name": "Especialidades Médicas",
+      "words": ["Endocrinologia", "Neurologia", "Oftalmologia", "Cardiologia"]
+    },
+    {
+      "id": "2820ebd1-7d43-43dc-b565-3697efc7005e",
+      "name": "Temperos e Especiarias",
+      "words": ["Erva-Doce", "Pimenta Caiena", "Gengibre", "Açafrão"]
+    },
     [
       {
-        "value": "Maçã",
-        "category": "Frutas"
+        "id": "fe481558-a335-42f6-b5ca-64d9a421a64d",
+        "name": "Plataformas de Blogging",
+        "words": ["Tumblr", "Medium", "Blogger", "Ghost"]
       },
       {
-        "value": "Abacaxi",
-        "category": "Frutas"
+        "id": "b2c6da75-9020-4bf4-8d42-06a2ec259a65",
+        "name": "Embarcações Tradicionais",
+        "words": ["Barco a Remo", "Gôndola", "Jangada", "Canoa Havaiana"]
       },
       {
-        "value": "Pera",
-        "category": "Frutas"
+        "id": "ed6c3295-fe6f-4a5a-89aa-e13f69788aaf",
+        "name": "Inovações Tecnológicas",
+        "words": ["Realidade Aumentada", "Impressora 3D", "Carro Autônomo", "Bioimpressão"]
       },
       {
-        "value": "Laranja",
-        "category": "Frutas"
-      }
-    ],
-    [
-      {
-        "value": "Cachorro",
-        "category": "Animais"
-      },
-      {
-        "value": "Gato",
-        "category": "Animais"
-      },
-      {
-        "value": "Pássaro",
-        "category": "Animais"
-      },
-      {
-        "value": "Tartaruga",
-        "category": "Animais"
-      }
-    ],
-    [
-      {
-        "value": "Azul",
-        "category": "Cores"
-      },
-      {
-        "value": "Amarelo",
-        "category": "Cores"
-      },
-      {
-        "value": "Verde",
-        "category": "Cores"
-      },
-      {
-        "value": "Vermelho",
-        "category": "Cores"
-      }
-    ],
-    [
-      {
-        "value": "Carro",
-        "category": "Veículos"
-      },
-      {
-        "value": "Bicicleta",
-        "category": "Veículos"
-      },
-      {
-        "value": "Avião",
-        "category": "Veículos"
-      },
-      {
-        "value": "Barco",
-        "category": "Veículos"
-      }
-    ],
-    [
-      {
-        "value": "Computador",
-        "category": "Tecnologia"
-      },
-      {
-        "value": "Smartphone",
-        "category": "Tecnologia"
-      },
-      {
-        "value": "Internet",
-        "category": "Tecnologia"
-      },
-      {
-        "value": "Robô",
-        "category": "Tecnologia"
-      }
-    ],
-    [
-      {
-        "value": "Montanha",
-        "category": "Geografia"
-      },
-      {
-        "value": "Rio",
-        "category": "Geografia"
-      },
-      {
-        "value": "Deserto",
-        "category": "Geografia"
-      },
-      {
-        "value": "Floresta",
-        "category": "Geografia"
-      }
-    ],
-    [
-      {
-        "value": "Violino",
-        "category": "Instrumentos Musicais"
-      },
-      {
-        "value": "Piano",
-        "category": "Instrumentos Musicais"
-      },
-      {
-        "value": "Bateria",
-        "category": "Instrumentos Musicais"
-      },
-      {
-        "value": "Guitarra",
-        "category": "Instrumentos Musicais"
-      }
-    ],
-    [
-      {
-        "value": "Camiseta",
-        "category": "Roupas"
-      },
-      {
-        "value": "Calça",
-        "category": "Roupas"
-      },
-      {
-        "value": "Sapato",
-        "category": "Roupas"
-      },
-      {
-        "value": "Vestido",
-        "category": "Roupas"
-      }
-    ],
-    [
-      {
-        "value": "Sofá",
-        "category": "Mobília"
-      },
-      {
-        "value": "Mesa",
-        "category": "Mobília"
-      },
-      {
-        "value": "Cama",
-        "category": "Mobília"
-      },
-      {
-        "value": "Cadeira",
-        "category": "Mobília"
-      }
-    ],
-    [
-      {
-        "value": "Primavera",
-        "category": "Estações do Ano"
-      },
-      {
-        "value": "Verão",
-        "category": "Estações do Ano"
-      },
-      {
-        "value": "Outono",
-        "category": "Estações do Ano"
-      },
-      {
-        "value": "Inverno",
-        "category": "Estações do Ano"
-      }
-    ],
-    [
-      {
-        "value": "Astronomia",
-        "category": "Ciências"
-      },
-      {
-        "value": "Biologia",
-        "category": "Ciências"
-      },
-      {
-        "value": "Física",
-        "category": "Ciências"
-      },
-      {
-        "value": "Química",
-        "category": "Ciências"
-      }
-    ],
-    [
-      {
-        "value": "Açúcar",
-        "category": "Ingredientes"
-      },
-      {
-        "value": "Sal",
-        "category": "Ingredientes"
-      },
-      {
-        "value": "Farinha",
-        "category": "Ingredientes"
-      },
-      {
-        "value": "Óleo",
-        "category": "Ingredientes"
-      }
-    ],
-    [
-      {
-        "value": "América do Norte",
-        "category": "Continentes"
-      },
-      {
-        "value": "Europa",
-        "category": "Continentes"
-      },
-      {
-        "value": "África",
-        "category": "Continentes"
-      },
-      {
-        "value": "Ásia",
-        "category": "Continentes"
-      }
-    ],
-    [
-      {
-        "value": "Pizza",
-        "category": "Comidas"
-      },
-      {
-        "value": "Hambúrguer",
-        "category": "Comidas"
-      },
-      {
-        "value": "Sushi",
-        "category": "Comidas"
-      },
-      {
-        "value": "Salada",
-        "category": "Comidas"
-      }
-    ],
-    [
-      {
-        "value": "Doutor",
-        "category": "Profissões"
-      },
-      {
-        "value": "Professor",
-        "category": "Profissões"
-      },
-      {
-        "value": "Engenheiro",
-        "category": "Profissões"
-      },
-      {
-        "value": "Músico",
-        "category": "Profissões"
-      }
-    ],
-    [
-      {
-        "value": "Facebook",
-        "category": "Redes Sociais"
+        "id": "a8201acb-a34b-4db8-9ac0-410ee869bad3",
+        "name": "Formações Geológicas",
+        "words": ["Desfiladeiro", "Geiser", "Caverna", "Planície Aluvial"]
       },
       {
-        "value": "Instagram",
-        "category": "Redes Sociais"
+        "id": "c59ded61-8f2d-486a-aba8-76b7d8babf19",
+        "name": "Instrumentos de Sopro Orquestrais",
+        "words": ["Trompa", "Oboé", "Fagote", "Clarinete Baixo"]
       },
       {
-        "value": "Twitter",
-        "category": "Redes Sociais"
+        "id": "609b7885-ecf2-488d-b7bc-17ce67ba6ae9",
+        "name": "Vestuário Unissex",
+        "words": ["Macacão", "Blusa Polo", "Casaco de Lã", "Calça Jeans"]
       },
       {
-        "value": "LinkedIn",
-        "category": "Redes Sociais"
-      }
-    ],
-    [
-      {
-        "value": "Nadar",
-        "category": "Atividades Físicas"
-      },
-      {
-        "value": "Correr",
-        "category": "Atividades Físicas"
-      },
-      {
-        "value": "Yoga",
-        "category": "Atividades Físicas"
-      },
-      {
-        "value": "Ciclismo",
-        "category": "Atividades Físicas"
-      }
-    ],
-    [
-      {
-        "value": "Astronauta",
-        "category": "Ocupações"
-      },
-      {
-        "value": "Bombeiro",
-        "category": "Ocupações"
-      },
-      {
-        "value": "Advogado",
-        "category": "Ocupações"
-      },
-      {
-        "value": "Cozinheiro",
-        "category": "Ocupações"
-      }
-    ],
-    [
-      {
-        "value": "Telescópio",
-        "category": "Instrumentos Científicos"
-      },
-      {
-        "value": "Microscópio",
-        "category": "Instrumentos Científicos"
-      },
-      {
-        "value": "Balança",
-        "category": "Instrumentos Científicos"
-      },
-      {
-        "value": "Termômetro",
-        "category": "Instrumentos Científicos"
-      }
-    ],
-    [
-      {
-        "value": "Banana",
-        "category": "Frutas Tropicais"
-      },
-      {
-        "value": "Manga",
-        "category": "Frutas Tropicais"
-      },
-      {
-        "value": "Coco",
-        "category": "Frutas Tropicais"
-      },
-      {
-        "value": "Abacate",
-        "category": "Frutas Tropicais"
-      }
-    ],
-    [
-      {
-        "value": "Elefante",
-        "category": "Animais Selvagens"
-      },
-      {
-        "value": "Leão",
-        "category": "Animais Selvagens"
-      },
-      {
-        "value": "Rinoceronte",
-        "category": "Animais Selvagens"
-      },
-      {
-        "value": "Tigre",
-        "category": "Animais Selvagens"
-      }
-    ],
-    [
-      {
-        "value": "Roxo",
-        "category": "Cores Vivas"
-      },
-      {
-        "value": "Turquesa",
-        "category": "Cores Vivas"
-      },
-      {
-        "value": "Magenta",
-        "category": "Cores Vivas"
-      },
-      {
-        "value": "Lima",
-        "category": "Cores Vivas"
-      }
-    ],
-    [
-      {
-        "value": "Helicóptero",
-        "category": "Aeronaves"
-      },
-      {
-        "value": "Foguete",
-        "category": "Aeronaves"
-      },
-      {
-        "value": "Dirigível",
-        "category": "Aeronaves"
-      },
-      {
-        "value": "Jato",
-        "category": "Aeronaves"
-      }
-    ],
-    [
-      {
-        "value": "Realidade Virtual",
-        "category": "Inovações Tecnológicas"
-      },
-      {
-        "value": "Nanotecnologia",
-        "category": "Inovações Tecnológicas"
-      },
-      {
-        "value": "Biometria",
-        "category": "Inovações Tecnológicas"
-      },
-      {
-        "value": "Inteligência Artificial",
-        "category": "Inovações Tecnológicas"
-      }
-    ],
-    [
-      {
-        "value": "Cânion",
-        "category": "Formações Geográficas"
-      },
-      {
-        "value": "Península",
-        "category": "Formações Geográficas"
-      },
-      {
-        "value": "Planalto",
-        "category": "Formações Geográficas"
-      },
-      {
-        "value": "Delta",
-        "category": "Formações Geográficas"
-      }
-    ],
-    [
-      {
-        "value": "Trompete",
-        "category": "Instrumentos de Sopro"
-      },
-      {
-        "value": "Flauta",
-        "category": "Instrumentos de Sopro"
-      },
-      {
-        "value": "Saxofone",
-        "category": "Instrumentos de Sopro"
-      },
-      {
-        "value": "Trombone",
-        "category": "Instrumentos de Sopro"
-      }
-    ],
-    [
-      {
-        "value": "Blusa",
-        "category": "Vestuário Feminino"
-      },
-      {
-        "value": "Saia",
-        "category": "Vestuário Feminino"
-      },
-      {
-        "value": "Blazer",
-        "category": "Vestuário Feminino"
-      },
-      {
-        "value": "Vestido de Cocktail",
-        "category": "Vestuário Feminino"
-      }
-    ],
-    [
-      {
-        "value": "Escrivaninha",
-        "category": "Móveis de Escritório"
-      },
-      {
-        "value": "Armário de Arquivo",
-        "category": "Móveis de Escritório"
-      },
-      {
-        "value": "Poltrona",
-        "category": "Móveis de Escritório"
-      },
-      {
-        "value": "Cadeira de Rodas",
-        "category": "Móveis de Escritório"
-      }
-    ],
-    [
-      {
-        "value": "Equinócio",
-        "category": "Eventos Astronômicos"
-      },
-      {
-        "value": "Solstício",
-        "category": "Eventos Astronômicos"
-      },
-      {
-        "value": "Cometa",
-        "category": "Eventos Astronômicos"
-      },
-      {
-        "value": "Eclipse",
-        "category": "Eventos Astronômicos"
-      }
-    ],
-    [
-      {
-        "value": "Ecologia",
-        "category": "Estudos Acadêmicos"
+        "id": "7a2dc201-0e62-48fd-8619-fecdfe3b134f",
+        "name": "Móveis de Quarto",
+        "words": ["Criado-Mudo", "Cômoda", "Espelho de Parede", "Colchão"]
       },
       {
-        "value": "Arqueologia",
-        "category": "Estudos Acadêmicos"
+        "id": "b0e79db0-791c-4229-ac5a-03b13b9eed7e",
+        "name": "Ramos da Medicina",
+        "words": ["Epidemiologia", "Radiologia", "Psiquiatria", "Ortopedia"]
       },
       {
-        "value": "Sociologia",
-        "category": "Estudos Acadêmicos"
+        "id": "2d687461-9541-45c3-a48f-845320d9aef4",
+        "name": "Adoçantes Naturais",
+        "words": ["Mel", "Xarope de Bordo", "Agave", "Stévia"]
       },
       {
-        "value": "Etnografia",
-        "category": "Estudos Acadêmicos"
-      }
-    ],
-    [
-      {
-        "value": "Fermento",
-        "category": "Cozimento"
+        "id": "cd21b882-ebd3-4a89-bc8f-34c99a91c4fa",
+        "name": "Oceanos do Mundo",
+        "words": ["Oceano Atlântico", "Mar do Japão", "Mar Mediterrâneo", "Mar de Weddell"]
       },
       {
-        "value": "Manteiga",
-        "category": "Cozimento"
+        "id": "12a5e799-b27c-436e-9949-4135f4fae1ff",
+        "name": "Pratos de Massas Asiáticas",
+        "words": ["Ramen", "Soba", "Lámen de Ovo", "Phad Thai"]
       },
       {
-        "value": "Levedura",
-        "category": "Cozimento"
+        "id": "e5c2b737-030c-4456-88cf-6948666718ab",
+        "name": "Especialidades Médicas",
+        "words": ["Cardiologista", "Dermatologista", "Otorrinolaringologista", "Endocrinologista"]
       },
       {
-        "value": "Chocolate em Pó",
-        "category": "Cozimento"
-      }
-    ],
-    [
-      {
-        "value": "Antártica",
-        "category": "Regiões Polares"
+        "id": "92359e7b-ab86-4804-98e7-556fe61560bd",
+        "name": "Treino de Alta Intensidade",
+        "words": ["CrossFit", "Pilates", "Boxe", "Treino Funcional"]
       },
       {
-        "value": "Ártico",
-        "category": "Regiões Polares"
+        "id": "4ccecd76-47e2-4fa1-a095-ba8fc51d6b31",
+        "name": "Instrumentos de Laboratório",
+        "words": ["Cromatógrafo Gasoso", "Microscópio Confocal", "Espectrofotômetro", "Centrífuga"]
       },
       {
-        "value": "Groenlândia",
-        "category": "Regiões Polares"
+        "id": "00280d69-46ef-459c-9507-d0a3232b28ef",
+        "name": "Frutas",
+        "words": ["Kiwi", "Melancia", "Manga", "Uva"]
       },
-      {
-        "value": "Alasca",
-        "category": "Regiões Polares"
-      }
-    ],
-    [
       {
-        "value": "Médico",
-        "category": "Profissões de Saúde"
+        "id": "f2111b4a-a532-4913-87d7-3e89b772420c",
+        "name": "Animais",
+        "words": ["Elefante", "Leão", "Girafa", "Zebra"]
       },
       {
-        "value": "Enfermeiro",
-        "category": "Profissões de Saúde"
+        "id": "c9eb8d3d-72cd-42a6-8db5-02fb1373c1fa",
+        "name": "Cores",
+        "words": ["Roxo", "Cinza", "Rosa", "Marrom"]
       },
       {
-        "value": "Fisioterapeuta",
-        "category": "Profissões de Saúde"
+        "id": "4af7a719-2708-4496-85b8-ef05efd86150",
+        "name": "Veículos",
+        "words": ["Moto", "Helicóptero", "Caminhão", "Trem"]
       },
       {
-        "value": "Psicólogo",
-        "category": "Profissões de Saúde"
-      }
-    ],
-    [
-      {
-        "value": "TikTok",
-        "category": "Plataformas de Mídia Social"
+        "id": "269e055f-bc11-4740-945a-ca6ad765d341",
+        "name": "Tecnologia",
+        "words": ["Realidade Virtual", "Drones", "Impressora 3D", "Inteligência Artificial"]
       },
       {
-        "value": "Twitch",
-        "category": "Plataformas de Mídia Social"
+        "id": "7f7b13fb-7d62-42f5-b3f1-ea93c2e0bc36",
+        "name": "Geografia",
+        "words": ["Vulcão", "Iceberg", "Península", "Planície"]
       },
       {
-        "value": "Snapchat",
-        "category": "Plataformas de Mídia Social"
+        "id": "c97eb140-e3ff-48bd-b397-45d999dfef9c",
+        "name": "Instrumentos Musicais",
+        "words": ["Flauta", "Trompete", "Saxofone", "Harpa"]
       },
-      {
-        "value": "Pinterest",
-        "category": "Plataformas de Mídia Social"
-      }
-    ],
-    [
       {
-        "value": "Pular Corda",
-        "category": "Atividades Aeróbicas"
+        "id": "bf53bb1e-505f-46fb-b334-c7ec717b4659",
+        "name": "Roupas",
+        "words": ["Jaqueta", "Gravata", "Luvas", "Lenço"]
       },
       {
-        "value": "Zumba",
-        "category": "Atividades Aeróbicas"
+        "id": "912f4211-627b-46f7-9fa6-43e2c296d412",
+        "name": "Astros",
+        "words": ["Planeta Marte", "Nebulosa", "Supernova", "Asteróide"]
       },
       {
-        "value": "Aeróbica Aquática",
-        "category": "Atividades Aeróbicas"
+        "id": "be9a643a-0547-4931-86c5-341753cb20f2",
+        "name": "Objetos",
+        "words": ["Cadeira", "Máquina de Lavar", "Chave Inglesa", "Binóculos"]
       },
       {
-        "value": "Kickboxing",
-        "category": "Atividades Aeróbicas"
-      }
-    ],
-    [
-      {
-        "value": "Arquiteto",
-        "category": "Profissões de Design"
+        "id": "4a05313d-cf04-42b5-822b-b56de6e09d7f",
+        "name": "Comidas",
+        "words": ["Lasanha", "Tacos", "Dim Sum", "Paella"]
       },
       {
-        "value": "Designer de Interiores",
-        "category": "Profissões de Design"
+        "id": "d1dea9f4-e7ae-405b-b68c-5b43dbeaca5a",
+        "name": "Esportes",
+        "words": ["Vôlei", "Golfe", "Surfe", "Esqui"]
       },
       {
-        "value": "Paisagista",
-        "category": "Profissões de Design"
+        "id": "224ebf89-a379-4835-9ef7-8c45f613ff2f",
+        "name": "Instituições",
+        "words": ["Universidade", "Orfanato", "Asilo", "Creche"]
       },
-      {
-        "value": "Designer Gráfico",
-        "category": "Profissões de Design"
-      }
-    ],
-    [
       {
-        "value": "Microscópio Eletrônico",
-        "category": "Instrumentos Científicos Avançados"
+        "id": "8b8a5020-736c-4601-bf90-4f367dc26e33",
+        "name": "Estações do Ano",
+        "words": ["Outono", "Inverno", "Primavera", "Verão"]
       },
       {
-        "value": "Espectrômetro de Massas",
-        "category": "Instrumentos Científicos Avançados"
+        "id": "9f011a74-86e3-4363-a53a-98046f059009",
+        "name": "Gêneros Literários",
+        "words": ["Poesia", "Biografia", "Autoajuda", "Fábula"]
       },
       {
-        "value": "Cromatógrafo Líquido",
-        "category": "Instrumentos Científicos Avançados"
+        "id": "ce700eec-84cc-457a-a983-9d37c2966442",
+        "name": "Acessórios",
+        "words": ["Mala de Viagem", "Relógio de Bolso", "Luvas de Inverno", "Bijuterias"]
       },
       {
-        "value": "Acelerador de Partículas",
-        "category": "Instrumentos Científicos Avançados"
+        "id": "6a6aa87a-0e61-4631-84f2-36ee1764888e",
+        "name": "Momentos do Dia",
+        "words": ["Madrugada", "Manhã", "Tarde", "Noite"]
       }
     ]
   ]
 }
-
