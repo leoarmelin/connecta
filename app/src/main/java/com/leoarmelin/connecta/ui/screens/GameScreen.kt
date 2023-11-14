@@ -37,6 +37,7 @@ import com.leoarmelin.connecta.ui.components.WordPill
 import com.leoarmelin.connecta.ui.components.WordPillState
 import com.leoarmelin.connecta.ui.theme.Typography
 import com.leoarmelin.connecta.viewmodels.WordsViewModel
+import kotlinx.coroutines.delay
 import androidx.compose.material3.MaterialTheme.colorScheme as mtc
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalFoundationApi::class)
@@ -66,6 +67,7 @@ fun GameScreen(
 
     LaunchedEffect(hasWon) {
         if (!hasWon) return@LaunchedEffect
+        delay(1000)
         navController.navigate(WinScreen)
     }
 
