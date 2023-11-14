@@ -1,8 +1,10 @@
 package com.leoarmelin.connecta.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.leoarmelin.connecta.helpers.SharedPreferencesHelper
+import com.leoarmelin.connecta.models.Category
 import com.leoarmelin.connecta.models.Result
 import com.leoarmelin.connecta.models.Word
 import com.leoarmelin.connecta.repositories.WordsRepository
@@ -11,7 +13,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.time.LocalDate
 
 class WordsViewModel(
@@ -22,6 +23,9 @@ class WordsViewModel(
 
     private val _words = MutableStateFlow<List<Word>>(emptyList())
     val words get() = _words.asStateFlow()
+
+    private val _categories = MutableStateFlow<List<Category>>(emptyList())
+    // val categories get() = _categories.asStateFlow()
 
     private val _selectedWords = MutableStateFlow<List<Word>>(emptyList())
     val selectedWords get() = _selectedWords.asStateFlow()
@@ -43,15 +47,6 @@ class WordsViewModel(
 
     init {
         initializeGame()
-
-        viewModelScope.launch {
-            _lastDayPlayed.collect { lastDayPlayed ->
-                if (lastDayPlayed == null) return@collect
-                withContext(Dispatchers.IO) {
-                    getDailyWords(lastDayPlayed)
-                }
-            }
-        }
 
         viewModelScope.launch {
             _selectedWords.collect { selectedWords ->
@@ -88,16 +83,20 @@ class WordsViewModel(
         viewModelScope.launch {
             _finishedWords.collect { finishedWords ->
                 if (finishedWords.isEmpty()) return@collect
-                updateHasWonValue(finishedWords.size == _words.value.size)
+                updateHasWonValue(
+                    _categories.value.map { it.id }.toSet(),
+                    finishedWords.size == _words.value.size
+                )
             }
         }
     }
 
     private fun initializeGame() {
         val savedDay = sharedPreferencesHelper.getDay()
+        val currentCategoriesIds = sharedPreferencesHelper.getCurrentCategoriesId()
         val now = LocalDate.now()
 
-        if (savedDay != now) {
+        if (currentCategoriesIds.isNotEmpty()) {
             _lastDayPlayed.value = now
             sharedPreferencesHelper.saveDay(now)
             sharedPreferencesHelper.saveMistakes(0)
@@ -107,24 +106,55 @@ class WordsViewModel(
             _mistakes.value = sharedPreferencesHelper.getMistakes()
             _hasWon.value = sharedPreferencesHelper.getHasWon()
         }
+
+        getDailyWords(currentCategoriesIds.isEmpty())
     }
 
-    private suspend fun getDailyWords(lastDayPlayed: LocalDate) {
-        if (_words.value.isNotEmpty()) return
+    fun getDailyWords(renewWords: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            wordsRepository.getDailyWords().collect { result ->
+                when (result) {
+                    is Result.Loading -> {}
+                    is Result.Success -> {
+                        val alreadyPlayedIds = sharedPreferencesHelper.getCategoriesId()
+                        val currentCategoriesIds = sharedPreferencesHelper.getCurrentCategoriesId()
 
-        wordsRepository.getDailyWords().collect { result ->
-            when (result) {
-                is Result.Loading -> {}
-                is Result.Success -> {
-                    val categoriesAmount = result.data.words.size
-                    val startIndex =
-                        (lastDayPlayed.toEpochDay() % (categoriesAmount - CATEGORIES_PER_GAME)).toInt()
-                    val endIndex = startIndex + CATEGORIES_PER_GAME
-                    _words.value =
-                        result.data.words.subList(startIndex, endIndex).flatten().shuffled()
+                        val words = mutableListOf<Word>()
+                        val chosenCategories: List<Category>
+
+                        if (renewWords) {
+                            chosenCategories =
+                                result.data.categories.filter { !alreadyPlayedIds.contains(it.id) }
+                                    .shuffled()
+                                    .take(WORDS_PER_CATEGORY)
+
+                            sharedPreferencesHelper.saveCurrentCategoriesId(
+                                chosenCategories.map { it.id }.toSet()
+                            )
+                        } else {
+                            chosenCategories =
+                                result.data.categories.filter { currentCategoriesIds.contains(it.id) }
+                        }
+
+                        chosenCategories.forEach { category ->
+                            category.words.forEach { word ->
+                                words.add(
+                                    Word(
+                                        value = word,
+                                        category = category.name
+                                    )
+                                )
+                            }
+                        }
+
+                        _categories.value = chosenCategories
+                        _words.value = words.shuffled()
+                    }
+
+                    is Result.Error -> {
+                        Log.d("Aoba", result.exception)
+                    }
                 }
-
-                is Result.Error -> {}
             }
         }
     }
@@ -134,9 +164,18 @@ class WordsViewModel(
         sharedPreferencesHelper.saveMistakes(_mistakes.value)
     }
 
-    private fun updateHasWonValue(value: Boolean) {
+    fun updateHasWonValue(finishedWordsIds: Set<String>, value: Boolean) {
         _hasWon.value = value
         sharedPreferencesHelper.saveHasWon(value)
+        sharedPreferencesHelper.saveCurrentCategoriesId(emptySet())
+        sharedPreferencesHelper.saveCategoriesId(finishedWordsIds)
+
+        if (value) {
+            viewModelScope.launch {
+                delay(300)
+                _finishedWords.value = emptyList()
+            }
+        }
     }
 
     fun selectWord(word: Word) {
@@ -163,6 +202,5 @@ class WordsViewModel(
 
     companion object {
         const val WORDS_PER_CATEGORY = 4
-        const val CATEGORIES_PER_GAME = 2
     }
 }

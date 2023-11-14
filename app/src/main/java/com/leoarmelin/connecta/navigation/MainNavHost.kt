@@ -14,7 +14,8 @@ import com.leoarmelin.connecta.viewmodels.WordsViewModel
 
 @Composable
 fun MainNavHost(
-    wordsViewModel: WordsViewModel
+    wordsViewModel: WordsViewModel,
+    onLoadAd: () -> Unit
 ) {
     val navController = rememberNavController()
 
@@ -35,8 +36,9 @@ fun MainNavHost(
 
         composable(WinScreen) {
             WinScreen(
-                navController,
-                wordsViewModel = wordsViewModel
+                navController = navController,
+                wordsViewModel = wordsViewModel,
+                onLoadAd = onLoadAd
             )
         }
     }

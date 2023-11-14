@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -31,11 +32,13 @@ import com.leoarmelin.connecta.viewmodels.WordsViewModel
 @Composable
 fun WinScreen(
     navController: NavController = rememberNavController(),
-    wordsViewModel: WordsViewModel
+    wordsViewModel: WordsViewModel,
+    onLoadAd: () -> Unit
 ) {
     val context = LocalContext.current
     val words by wordsViewModel.words.collectAsState()
     val mistakes by wordsViewModel.mistakes.collectAsState()
+    val hasWon by wordsViewModel.hasWon.collectAsState()
 
     val sections = remember(words) {
         words.map { it.category }.distinct().sorted()
@@ -62,8 +65,16 @@ fun WinScreen(
         navController.navigate(Routes.StartScreen)
     }
 
+    LaunchedEffect(hasWon) {
+        if (hasWon) return@LaunchedEffect
+
+        navController.navigate(Routes.GameScreen)
+    }
+
     LazyColumn(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -89,11 +100,20 @@ fun WinScreen(
         }
         item {
             AppButton(
+                text = "JOGAR MAIS",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 40.dp),
+                onClick = onLoadAd
+            )
+        }
+        item {
+            AppButton(
                 text = "COMPARTILHAR",
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
-                    .padding(top = 40.dp)
             ) {
                 val sendIntent: Intent = Intent().apply {
                     action = Intent.ACTION_SEND

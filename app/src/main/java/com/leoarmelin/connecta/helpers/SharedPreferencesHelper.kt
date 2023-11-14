@@ -33,9 +33,29 @@ class SharedPreferencesHelper(context: Context) {
         return sharedPreferences.getBoolean(HAS_WON, false)
     }
 
+    fun saveCategoriesId(categoriesId: Set<String>) {
+        val currentSet = getCategoriesId().toMutableSet()
+        currentSet.addAll(categoriesId)
+        sharedPreferences.edit().putStringSet(CATEGORIES_ID, currentSet).apply()
+    }
+
+    fun getCategoriesId(): Set<String> {
+        return sharedPreferences.getStringSet(CATEGORIES_ID, emptySet()) ?: emptySet()
+    }
+
+    fun saveCurrentCategoriesId(value: Set<String>) {
+        sharedPreferences.edit().putStringSet(CURRENT_CATEGORIES_ID, value).apply()
+    }
+
+    fun getCurrentCategoriesId(): Set<String> {
+        return sharedPreferences.getStringSet(CURRENT_CATEGORIES_ID, emptySet()) ?: emptySet()
+    }
+
     companion object {
         const val DAY = "day"
         const val MISTAKES = "mistakes"
         const val HAS_WON = "hasWon"
+        const val CATEGORIES_ID = "categoriesId"
+        const val CURRENT_CATEGORIES_ID = "categoriesId"
     }
 }

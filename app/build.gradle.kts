@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -21,7 +23,23 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField(
+                "String",
+                "ADS_API_BLOCK_KEY",
+                "\"${gradleLocalProperties(rootDir).getProperty("DEBUG_ADS_API_BLOCK_KEY")}\""
+            )
+
+            manifestPlaceholders["adsApiKey"] = gradleLocalProperties(rootDir).getProperty("DEBUG_ADS_API_KEY")
+        }
         release {
+            buildConfigField(
+                "String",
+                "ADS_API_BLOCK_KEY",
+                "\"${gradleLocalProperties(rootDir).getProperty("RELEASE_ADS_API_BLOCK_KEY")}\""
+            )
+
+            manifestPlaceholders["adsApiKey"] = gradleLocalProperties(rootDir).getProperty("RELEASE_ADS_API_KEY")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -38,6 +56,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -71,7 +90,7 @@ dependencies {
 
     // Compose Navigation
     implementation("androidx.navigation:navigation-compose:2.7.5")
-    
+
     // Google Fonts
     implementation("androidx.compose.ui:ui-text-google-fonts:1.5.4")
 
@@ -84,4 +103,7 @@ dependencies {
     implementation("com.squareup.moshi:moshi:1.14.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
+
+    // AdMob
+    implementation("com.google.android.gms:play-services-ads:22.5.0")
 }
