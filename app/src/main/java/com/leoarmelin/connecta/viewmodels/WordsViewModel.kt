@@ -172,7 +172,7 @@ class WordsViewModel(
 
         if (value) {
             viewModelScope.launch {
-                delay(300)
+                delay(1500)
                 _finishedWords.value = emptyList()
             }
         }
