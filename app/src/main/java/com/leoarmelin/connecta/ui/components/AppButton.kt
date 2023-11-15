@@ -2,12 +2,15 @@ package com.leoarmelin.connecta.ui.components
 
 import android.annotation.SuppressLint
 import android.view.MotionEvent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,6 +38,8 @@ fun AppButton(
     text: String,
     modifier: Modifier = Modifier,
     debounce: Long = 1000,
+    isLoading: Boolean = false,
+    isEnabled: Boolean = true,
     onClick: () -> Unit
 ) {
     var isPressed by remember { mutableStateOf(false) }
@@ -55,9 +60,10 @@ fun AppButton(
             disabledContentColor = mtc.onPrimaryContainer.copy(alpha = 0.5f),
         ),
         border = BorderStroke(2.dp, mtc.onPrimaryContainer),
+        enabled = isEnabled,
         modifier = modifier
             .pointerInteropFilter {
-                if (!isDebouncing) {
+                if (!isDebouncing && isEnabled) {
                     when (it.action) {
                         MotionEvent.ACTION_DOWN -> {
                             isPressed = true
@@ -84,11 +90,23 @@ fun AppButton(
             }
             .scale(scale)
     ) {
-        Text(
-            text = text,
-            style = Typography.labelMedium,
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-        )
+        AnimatedVisibility(visible = !isLoading) {
+            Text(
+                text = text,
+                style = Typography.labelMedium,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+            )
+        }
+        AnimatedVisibility(visible = isLoading) {
+            CircularProgressIndicator(
+                color = mtc.onPrimaryContainer,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .size(30.dp)
+
+            )
+        }
+
     }
 }
 
@@ -98,6 +116,8 @@ fun PreviewAppButton() {
     ConnectaTheme {
         AppButton(
             text = "JOGAR",
+            isEnabled = true,
+            isLoading = true,
             onClick = {}
         )
     }

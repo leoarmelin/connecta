@@ -15,7 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -39,6 +41,7 @@ fun WinScreen(
     val words by wordsViewModel.words.collectAsState()
     val mistakes by wordsViewModel.mistakes.collectAsState()
     val hasWon by wordsViewModel.hasWon.collectAsState()
+    var isAdLoading by remember { mutableStateOf(false) }
 
     val sections = remember(words) {
         words.map { it.category }.distinct().sorted()
@@ -101,11 +104,16 @@ fun WinScreen(
         item {
             AppButton(
                 text = "JOGAR MAIS",
+                isLoading = isAdLoading,
+                isEnabled = !isAdLoading,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
                     .padding(top = 40.dp),
-                onClick = onLoadAd
+                onClick = {
+                    isAdLoading = true
+                    onLoadAd()
+                }
             )
         }
         item {
