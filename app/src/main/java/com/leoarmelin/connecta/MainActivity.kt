@@ -1,5 +1,7 @@
 package com.leoarmelin.connecta
 
+import android.annotation.SuppressLint
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -18,6 +20,7 @@ import com.leoarmelin.connecta.navigation.MainNavHost
 import com.leoarmelin.connecta.ui.theme.ConnectaTheme
 import com.leoarmelin.connecta.viewmodels.WordsViewModel
 
+@SuppressLint("SourceLockedOrientationActivity")
 class MainActivity : ComponentActivity() {
 
     private val wordsViewModel by lazy {
@@ -29,6 +32,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         MobileAds.initialize(this)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         setContent {
             ConnectaTheme {
