@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -22,6 +23,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.leoarmelin.connecta.ui.theme.ConnectaTheme
 import com.leoarmelin.connecta.ui.theme.Typography
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import androidx.compose.material3.MaterialTheme.colorScheme as mtc
 
 
@@ -31,9 +34,12 @@ import androidx.compose.material3.MaterialTheme.colorScheme as mtc
 fun AppButton(
     text: String,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit,
+    debounce: Long = 1000,
+    onClick: () -> Unit
 ) {
     var isPressed by remember { mutableStateOf(false) }
+    var isDebouncing by remember { mutableStateOf(false) }
+    val coroutineScope = rememberCoroutineScope()
     val scale by animateFloatAsState(
         targetValue = if (isPressed) 1.1f else 1.0f,
         label = "scale"
@@ -51,20 +57,29 @@ fun AppButton(
         border = BorderStroke(2.dp, mtc.onPrimaryContainer),
         modifier = modifier
             .pointerInteropFilter {
-                when (it.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        isPressed = true
-                    }
+                if (!isDebouncing) {
+                    when (it.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            isPressed = true
+                        }
 
-                    MotionEvent.ACTION_UP -> {
-                        onClick()
-                        isPressed = false
-                    }
+                        MotionEvent.ACTION_UP -> {
+                            coroutineScope.launch {
+                                isDebouncing = true
+                                delay(debounce)
+                                isDebouncing = false
+                            }
 
-                    MotionEvent.ACTION_CANCEL -> {
-                        isPressed = false
+                            onClick()
+                            isPressed = false
+                        }
+
+                        MotionEvent.ACTION_CANCEL -> {
+                            isPressed = false
+                        }
                     }
                 }
+
                 true
             }
             .scale(scale)
