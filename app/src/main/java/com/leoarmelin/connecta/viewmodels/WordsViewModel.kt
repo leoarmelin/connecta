@@ -136,7 +136,7 @@ class WordsViewModel(
                                 result.data.categories.filter { currentCategoriesIds.contains(it.id) }
                         }
 
-                        chosenCategories.take(1).forEach { category ->
+                        chosenCategories.forEach { category ->
                             category.words.forEach { word ->
                                 words.add(
                                     Word(
