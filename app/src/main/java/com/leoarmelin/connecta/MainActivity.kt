@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
             override fun onAdLoaded(ad: RewardedAd) {
                 ad.show(this@MainActivity) {
                     wordsViewModel.getDailyWords(true)
-                    wordsViewModel.updateHasWonValue(false)
+                    wordsViewModel.updateHasWonValue(emptySet(), false)
                 }
             }
 
