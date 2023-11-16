@@ -51,7 +51,7 @@ fun WinScreen(
         when(mistakes) {
             0 -> "Você nunca errou! Parabéns!! \uD83E\uDD29"
             1 -> "Você venceu após apenas 1 erro! \uD83D\uDE04"
-            in 10..20 -> "O importante é persistir! Você venceu após $mistakes erros! \uD83D\uDC4F"
+            in 2..20 -> "O importante é persistir! Você venceu após $mistakes erros! \uD83D\uDC4F"
             else -> "Foi bem difícil, mas você conseguiu após $mistakes erros! Parabéns! \uD83D\uDC4D"
         }
     }
@@ -59,7 +59,7 @@ fun WinScreen(
         when(mistakes) {
             0 -> "Venci hoje sem nenhum erro! Viva o Connecta!! \uD83E\uDD29"
             1 -> "Venci hoje com 1 só erro! Somos todos Connecta!! \uD83D\uDE04"
-            in 10..20 -> "O que vale é tentar. Venci hoje com $mistakes erros! Vai Connecta!! \uD83D\uDC4F"
+            in 2..20 -> "O que vale é tentar. Venci hoje com $mistakes erros! Vai Connecta!! \uD83D\uDC4F"
             else -> "Foi bem difícil, mas eu consegui após $mistakes erros! Da próxima vai Connecta!! \uD83D\uDC4D"
         }
     }
