@@ -1,6 +1,9 @@
 package com.leoarmelin.connecta
 
+import android.annotation.SuppressLint
+import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -18,17 +21,22 @@ import com.leoarmelin.connecta.navigation.MainNavHost
 import com.leoarmelin.connecta.ui.theme.ConnectaTheme
 import com.leoarmelin.connecta.viewmodels.WordsViewModel
 
+@SuppressLint("SourceLockedOrientationActivity")
 class MainActivity : ComponentActivity() {
 
+    private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
     private val wordsViewModel by lazy {
         WordsViewModel(
-            sharedPreferencesHelper = SharedPreferencesHelper(this.applicationContext)
+            sharedPreferencesHelper = sharedPreferencesHelper
         )
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         MobileAds.initialize(this)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        sharedPreferencesHelper = SharedPreferencesHelper(this.applicationContext)
 
         setContent {
             ConnectaTheme {
@@ -46,6 +54,11 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        sharedPreferencesHelper.saveHasWon(wordsViewModel.hasWon.value)
+        super.onSaveInstanceState(outState, outPersistentState)
+    }
+
     private fun showAd() {
         val adRequest = AdRequest.Builder().build()
 
@@ -53,7 +66,7 @@ class MainActivity : ComponentActivity() {
             override fun onAdLoaded(ad: RewardedAd) {
                 ad.show(this@MainActivity) {
                     wordsViewModel.getDailyWords(true)
-                    wordsViewModel.updateHasWonValue(false)
+                    wordsViewModel.updateHasWonValue(emptySet(), false)
                 }
             }
 

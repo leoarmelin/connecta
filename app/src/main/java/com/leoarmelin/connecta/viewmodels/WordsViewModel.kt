@@ -46,7 +46,8 @@ class WordsViewModel(
     val hasWon get() = _hasWon.asStateFlow()
 
     init {
-        initializeGame()
+        _hasWon.value = sharedPreferencesHelper.getHasWon()
+        if (!_hasWon.value) initializeGame()
 
         viewModelScope.launch {
             _selectedWords.collect { selectedWords ->
