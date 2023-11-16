@@ -61,7 +61,7 @@ fun WinScreen(
             1 -> "Venci hoje com 1 só erro! Somos todos Connecta!! \uD83D\uDE04"
             in 2..20 -> "O que vale é tentar. Venci hoje com $mistakes erros! Vai Connecta!! \uD83D\uDC4F"
             else -> "Foi bem difícil, mas eu consegui após $mistakes erros! Da próxima vai Connecta!! \uD83D\uDC4D"
-        }
+        } + "\n\nhttps://play.google.com/store/apps/details?id=com.leoarmelin.connecta"
     }
 
     BackHandler {
