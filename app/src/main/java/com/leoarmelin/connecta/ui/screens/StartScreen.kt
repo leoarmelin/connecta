@@ -1,5 +1,6 @@
 package com.leoarmelin.connecta.ui.screens
 
+import android.app.Activity
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
@@ -41,16 +42,22 @@ fun StartScreen(
     wordsViewModel: WordsViewModel
 ) {
     val hasWon by wordsViewModel.hasWon.collectAsState()
-    var activateBackHandler by remember { mutableStateOf(true) }
+    var askToLeave by remember { mutableStateOf(true) }
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
 
-    BackHandler(activateBackHandler) {
+    BackHandler(askToLeave) {
         coroutineScope.launch {
-            activateBackHandler = false
+            askToLeave = false
             Toast.makeText(context, "Press back again to leave", Toast.LENGTH_SHORT).show()
             delay(2000)
-            activateBackHandler = true
+            askToLeave = true
+        }
+    }
+
+    BackHandler(!askToLeave) {
+        coroutineScope.launch {
+            (context as? Activity)?.finish()
         }
     }
 

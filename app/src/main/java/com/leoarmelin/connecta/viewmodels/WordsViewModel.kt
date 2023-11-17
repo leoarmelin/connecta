@@ -85,7 +85,6 @@ class WordsViewModel(
             _finishedWords.collect { finishedWords ->
                 if (finishedWords.isEmpty()) return@collect
                 updateHasWonValue(
-                    _categories.value.map { it.id }.toSet(),
                     finishedWords.size == _words.value.size
                 )
             }
@@ -165,11 +164,11 @@ class WordsViewModel(
         sharedPreferencesHelper.saveMistakes(_mistakes.value)
     }
 
-    fun updateHasWonValue(finishedWordsIds: Set<String>, value: Boolean) {
+    fun updateHasWonValue(value: Boolean) {
         _hasWon.value = value
         sharedPreferencesHelper.saveHasWon(value)
         sharedPreferencesHelper.saveCurrentCategoriesId(emptySet())
-        sharedPreferencesHelper.saveCategoriesId(finishedWordsIds)
+        sharedPreferencesHelper.saveCategoriesId(_categories.value.map { it.id }.toSet())
 
         if (value) {
             viewModelScope.launch {
