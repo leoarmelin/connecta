@@ -1,6 +1,7 @@
 package com.leoarmelin.connecta.ui.screens
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.FiniteAnimationSpec
@@ -10,14 +11,15 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,12 +27,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.leoarmelin.connecta.R
 import com.leoarmelin.connecta.navigation.Routes.WinScreen
 import com.leoarmelin.connecta.ui.components.FinishedSection
 import com.leoarmelin.connecta.ui.components.WordPill
@@ -75,30 +80,44 @@ fun GameScreen(
 
     LazyColumn(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(8.dp)
+            .fillMaxSize(),
+        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 24.dp)
     ) {
         item {
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.x_circle),
+                    contentDescription = "Erros",
+                    tint = mtc.primaryContainer,
+                    modifier = Modifier.padding(end = 8.dp)
+                )
+
                 Text(
                     text = "Erros: ",
-                    style = Typography.bodyLarge,
+                    style = Typography.bodyMedium,
                     color = mtc.onBackground,
                     fontWeight = FontWeight.Bold
                 )
 
-                Text(
-                    text = "$mistakes",
-                    style = Typography.bodyLarge,
-                    color = mtc.onBackground
-                )
+                AnimatedContent(targetState = mistakes, label = "mistakes") {
+                    Text(
+                        text = "$it",
+                        style = Typography.bodyMedium,
+                        color = mtc.onBackground
+                    )
+                }
             }
         }
 
         item {
             FlowRow(
                 Modifier
-                    .padding(top = 16.dp)
+                    .padding(top = 32.dp)
                     .animateContentSize(animationSpec = tween(visibilitySpecDuration))
             ) {
                 words.forEach { word ->
@@ -137,7 +156,8 @@ fun GameScreen(
             finishedWords = finishedWords,
             sections = sections,
             lazyListScope = this,
-            wordsVisibilityAnimSpec = wordsVisibilityAnimSpec
+            wordsVisibilityAnimSpec = wordsVisibilityAnimSpec,
+            hasPadding = true
         )
     }
 }

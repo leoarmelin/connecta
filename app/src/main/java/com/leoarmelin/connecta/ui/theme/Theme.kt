@@ -3,47 +3,12 @@ package com.leoarmelin.connecta.ui.theme
 import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-
-
-private val LightColors = lightColorScheme(
-    primary = mtl_primary,
-    onPrimary = mtl_onPrimary,
-    primaryContainer = mtl_primaryContainer,
-    onPrimaryContainer = mtl_onPrimaryContainer,
-    secondary = mtl_secondary,
-    onSecondary = mtl_onSecondary,
-    secondaryContainer = mtl_secondaryContainer,
-    onSecondaryContainer = mtl_onSecondaryContainer,
-    tertiary = mtl_tertiary,
-    onTertiary = mtl_onTertiary,
-    tertiaryContainer = mtl_tertiaryContainer,
-    onTertiaryContainer = mtl_onTertiaryContainer,
-    error = mtl_error,
-    errorContainer = mtl_errorContainer,
-    onError = mtl_onError,
-    onErrorContainer = mtl_onErrorContainer,
-    background = mtl_background,
-    onBackground = mtl_onBackground,
-    surface = mtl_surface,
-    onSurface = mtl_onSurface,
-    surfaceVariant = mtl_surfaceVariant,
-    onSurfaceVariant = mtl_onSurfaceVariant,
-    outline = mtl_outline,
-    inverseOnSurface = mtl_inverseOnSurface,
-    inverseSurface = mtl_inverseSurface,
-    inversePrimary = mtl_inversePrimary,
-    surfaceTint = mtl_surfaceTint,
-    outlineVariant = mtl_outlineVariant,
-    scrim = mtl_scrim,
-)
-
 
 private val DarkColors = darkColorScheme(
     primary = mtd_primary,
@@ -82,11 +47,7 @@ fun ConnectaTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable() () -> Unit
 ) {
-    val colors = if (!useDarkTheme) {
-        LightColors
-    } else {
-        DarkColors
-    }
+    val colors = DarkColors
 
     val view = LocalView.current
     if (!view.isInEditMode) {

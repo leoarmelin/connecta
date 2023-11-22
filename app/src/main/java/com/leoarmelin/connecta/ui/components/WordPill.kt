@@ -22,7 +22,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.leoarmelin.connecta.ui.theme.ConnectaTheme
 import com.leoarmelin.connecta.ui.theme.Typography
-import com.leoarmelin.connecta.ui.theme.mtl_error
 import androidx.compose.material3.MaterialTheme.colorScheme as mtc
 
 enum class WordPillState {
@@ -35,16 +34,16 @@ enum class WordPillState {
 
 @Composable
 fun WordPill(
+    modifier: Modifier = Modifier,
     wordValue: String,
     state: WordPillState = WordPillState.NORMAL,
-    modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
     val mainColor by animateColorAsState(
         targetValue = when (state) {
-            WordPillState.SELECTED -> Color(0xff4C8DE3)
-            WordPillState.RIGHT -> Color(0xff1ED985)
-            WordPillState.WRONG -> mtl_error
+            WordPillState.SELECTED -> mtc.primary
+            WordPillState.RIGHT -> mtc.secondary
+            WordPillState.WRONG -> Color(0xFFFF3333)
             WordPillState.FINISHED -> mtc.onBackground.copy(alpha = 0.5f)
             else -> mtc.onBackground
         },
@@ -55,8 +54,8 @@ fun WordPill(
         modifier = modifier
             .clip(RoundedCornerShape(32.dp))
             .clickable { onClick() }
-            .border(2.dp, mainColor, RoundedCornerShape(32.dp))
-            .padding(horizontal = 12.dp, vertical = 6.dp)
+            .border(3.dp, mainColor, RoundedCornerShape(32.dp))
+            .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
         Text(
             text = wordValue,

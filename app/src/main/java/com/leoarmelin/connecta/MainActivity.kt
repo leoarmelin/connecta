@@ -7,10 +7,11 @@ import android.os.PersistableBundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
@@ -19,6 +20,8 @@ import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.leoarmelin.connecta.helpers.SharedPreferencesHelper
 import com.leoarmelin.connecta.navigation.MainNavHost
 import com.leoarmelin.connecta.ui.theme.ConnectaTheme
+import com.leoarmelin.connecta.ui.theme.STATUS_BAR_SCRIM
+import com.leoarmelin.connecta.ui.theme.gradient_background
 import com.leoarmelin.connecta.viewmodels.WordsViewModel
 
 @SuppressLint("SourceLockedOrientationActivity")
@@ -34,16 +37,19 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        window.statusBarColor = STATUS_BAR_SCRIM.hashCode()
+        window.navigationBarColor = STATUS_BAR_SCRIM.hashCode()
+
         MobileAds.initialize(this)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         sharedPreferencesHelper = SharedPreferencesHelper(this.applicationContext)
 
         setContent {
             ConnectaTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(brush = Brush.verticalGradient(gradient_background)),
                 ) {
                     MainNavHost(
                         wordsViewModel = wordsViewModel,
@@ -62,17 +68,21 @@ class MainActivity : ComponentActivity() {
     private fun showAd() {
         val adRequest = AdRequest.Builder().build()
 
-        RewardedAd.load(this, BuildConfig.ADS_API_BLOCK_KEY, adRequest, object : RewardedAdLoadCallback() {
-            override fun onAdLoaded(ad: RewardedAd) {
-                ad.show(this@MainActivity) {
-                    wordsViewModel.getDailyWords(true)
-                    wordsViewModel.updateHasWonValue(false)
+        RewardedAd.load(
+            this,
+            BuildConfig.ADS_API_BLOCK_KEY,
+            adRequest,
+            object : RewardedAdLoadCallback() {
+                override fun onAdLoaded(ad: RewardedAd) {
+                    ad.show(this@MainActivity) {
+                        wordsViewModel.getDailyWords(true)
+                        wordsViewModel.updateHasWonValue(false)
+                    }
                 }
-            }
 
-            override fun onAdFailedToLoad(error: LoadAdError) {
-                Log.d("Aoba", "Error during ad loading: $error")
-            }
-        })
+                override fun onAdFailedToLoad(error: LoadAdError) {
+                    Log.d("Aoba", "Error during ad loading: $error")
+                }
+            })
     }
 }

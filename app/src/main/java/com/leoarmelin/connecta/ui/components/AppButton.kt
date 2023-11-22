@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.view.MotionEvent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -30,7 +30,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import androidx.compose.material3.MaterialTheme.colorScheme as mtc
 
-
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 @SuppressLint("ModifierParameter")
@@ -46,20 +45,19 @@ fun AppButton(
     var isDebouncing by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
     val scale by animateFloatAsState(
-        targetValue = if (isPressed) 1.1f else 1.0f,
+        targetValue = if (isPressed) 0.9f else 1.0f,
         label = "scale"
     )
 
     Button(
         onClick = {},
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(28.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = mtc.primaryContainer,
             contentColor = mtc.onPrimaryContainer,
             disabledContainerColor = mtc.primaryContainer.copy(alpha = 0.5f),
             disabledContentColor = mtc.onPrimaryContainer.copy(alpha = 0.5f),
         ),
-        border = BorderStroke(2.dp, mtc.onPrimaryContainer),
         enabled = isEnabled,
         modifier = modifier
             .pointerInteropFilter {
@@ -89,6 +87,7 @@ fun AppButton(
                 true
             }
             .scale(scale)
+            .height(56.dp)
     ) {
         AnimatedVisibility(visible = !isLoading) {
             Text(

@@ -6,14 +6,10 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
@@ -26,12 +22,13 @@ import androidx.compose.ui.unit.dp
 import com.leoarmelin.connecta.models.Word
 import com.leoarmelin.connecta.ui.theme.Typography
 
-@OptIn(ExperimentalLayoutApi::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalLayoutApi::class)
 fun FinishedSection(
     finishedWords: List<Word>,
     lazyListScope: LazyListScope,
     sections: List<String>,
-    wordsVisibilityAnimSpec: FiniteAnimationSpec<IntOffset>
+    wordsVisibilityAnimSpec: FiniteAnimationSpec<IntOffset>,
+    hasPadding: Boolean = false
 ) {
     lazyListScope.items(sections, key = { it }) { section ->
         AnimatedVisibility(
@@ -41,6 +38,7 @@ fun FinishedSection(
         ) {
             Column(
                 modifier = Modifier
+                    .fillMaxWidth()
                     .padding(top = 16.dp)
             ) {
                 Text(
@@ -48,14 +46,7 @@ fun FinishedSection(
                     style = Typography.bodyLarge,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onBackground,
-                )
-
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(1.dp)
-                        .background(MaterialTheme.colorScheme.onBackground)
-                        .padding(top = 8.dp)
+                    modifier = if (hasPadding) Modifier.padding(horizontal = 8.dp) else Modifier
                 )
 
                 FlowRow(modifier = Modifier.padding(top = 16.dp)) {
