@@ -8,14 +8,17 @@ import com.leoarmelin.connecta.models.Category
 import com.leoarmelin.connecta.models.Result
 import com.leoarmelin.connecta.models.Word
 import com.leoarmelin.connecta.repositories.WordsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import javax.inject.Inject
 
-class WordsViewModel(
+@HiltViewModel
+class WordsViewModel @Inject constructor(
     private val wordsRepository: WordsRepository = WordsRepository(),
     private val sharedPreferencesHelper: SharedPreferencesHelper
 ) : ViewModel() {

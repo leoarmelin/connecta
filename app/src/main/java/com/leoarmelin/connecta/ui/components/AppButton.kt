@@ -93,14 +93,14 @@ fun AppButton(
             Text(
                 text = text,
                 style = Typography.labelMedium,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
         AnimatedVisibility(visible = isLoading) {
             CircularProgressIndicator(
                 color = mtc.onPrimaryContainer,
                 modifier = Modifier
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .padding(horizontal = 16.dp)
                     .size(30.dp)
 
             )
