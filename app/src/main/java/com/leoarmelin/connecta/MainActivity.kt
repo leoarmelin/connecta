@@ -7,11 +7,13 @@ import android.os.PersistableBundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
@@ -23,16 +25,16 @@ import com.leoarmelin.connecta.ui.theme.ConnectaTheme
 import com.leoarmelin.connecta.ui.theme.STATUS_BAR_SCRIM
 import com.leoarmelin.connecta.ui.theme.gradient_background
 import com.leoarmelin.connecta.viewmodels.WordsViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @SuppressLint("SourceLockedOrientationActivity")
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
-    private val wordsViewModel by lazy {
-        WordsViewModel(
-            sharedPreferencesHelper = sharedPreferencesHelper
-        )
-    }
+    private val wordsViewModel: WordsViewModel by viewModels()
+    @Inject
+    lateinit var sharedPreferencesHelper: SharedPreferencesHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +44,6 @@ class MainActivity : ComponentActivity() {
 
         MobileAds.initialize(this)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        sharedPreferencesHelper = SharedPreferencesHelper(this.applicationContext)
 
         setContent {
             ConnectaTheme {
