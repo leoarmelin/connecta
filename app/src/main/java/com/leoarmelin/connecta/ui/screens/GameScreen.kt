@@ -58,8 +58,10 @@ fun GameScreen(
     val finishedWords by wordsViewModel.finishedWords.collectAsState()
     val mistakes by wordsViewModel.mistakes.collectAsState()
     val hasWon by wordsViewModel.hasWon.collectAsState()
-    val sections = remember(finishedWords) {
-        words.map { it.category }.distinct().sorted()
+    val sections by remember(finishedWords, words) {
+        derivedStateOf {
+            words.map { it.category }.distinct().sorted()
+        }
     }
     val wordsToDisplay by remember(finishedWords, words) {
         derivedStateOf {

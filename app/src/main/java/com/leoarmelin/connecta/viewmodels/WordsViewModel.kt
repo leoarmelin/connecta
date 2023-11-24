@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.leoarmelin.connecta.helpers.SharedPreferencesHelper
 import com.leoarmelin.connecta.models.Category
+import com.leoarmelin.connecta.models.Game
 import com.leoarmelin.connecta.models.Result
 import com.leoarmelin.connecta.models.Word
 import com.leoarmelin.connecta.repositories.WordsRepository
@@ -12,23 +13,20 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
 class WordsViewModel @Inject constructor(
-    private val wordsRepository: WordsRepository = WordsRepository(),
+    private val wordsRepository: WordsRepository,
     private val sharedPreferencesHelper: SharedPreferencesHelper
 ) : ViewModel() {
-    private val _lastDayPlayed = MutableStateFlow<LocalDate?>(null)
 
-    private val _words = MutableStateFlow<List<Word>>(emptyList())
-    val words get() = _words.asStateFlow()
-
-    private val _categories = MutableStateFlow<List<Category>>(emptyList())
-    // val categories get() = _categories.asStateFlow()
+    private val _game = MutableStateFlow(Game.startNewGame(emptyList()))
 
     private val _selectedWords = MutableStateFlow<List<Word>>(emptyList())
     val selectedWords get() = _selectedWords.asStateFlow()
@@ -39,18 +37,57 @@ class WordsViewModel @Inject constructor(
     private val _wrongWords = MutableStateFlow<List<Word>>(emptyList())
     val wrongWords get() = _wrongWords.asStateFlow()
 
-    private val _finishedWords = MutableStateFlow<List<Word>>(emptyList())
-    val finishedWords get() = _finishedWords.asStateFlow()
+    /** UI VARIABLES **/
 
-    private val _mistakes = MutableStateFlow(0)
-    val mistakes get() = _mistakes.asStateFlow()
+    val finishedWords = _game.map { game ->
+        println("Aoba - ${game.finishedWords}")
+        println()
+        return@map game.finishedWords
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        emptyList()
+    )
 
-    private val _hasWon = MutableStateFlow(false)
-    val hasWon get() = _hasWon.asStateFlow()
+    val words = _game.map { game ->
+        return@map game.words
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        emptyList()
+    )
+
+    val hasWon = _game.map { game ->
+        return@map game.hasWon
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        false
+    )
+
+    val mistakes = _game.map { game ->
+        game.attempts.count { it == null }
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        0
+    )
 
     init {
-        _hasWon.value = sharedPreferencesHelper.getHasWon()
-        if (!_hasWon.value) initializeGame()
+        viewModelScope.launch(Dispatchers.IO) {
+            wordsRepository.getCurrentGame().collect { currentGame ->
+                val shouldRenewGame = sharedPreferencesHelper.getShouldRenewGame()
+
+                if (currentGame == null && shouldRenewGame) {
+                    getDailyWords()
+                    return@collect
+                } else if (currentGame != null) {
+                    _game.value = currentGame
+                } else {
+                    _game.value = wordsRepository.getLastPlayedGame()
+                }
+            }
+        }
 
         viewModelScope.launch {
             _selectedWords.collect { selectedWords ->
@@ -63,18 +100,24 @@ class WordsViewModel @Inject constructor(
                     newList.addAll(selectedWords)
                     _correctWords.value = newList
 
+                    addCategoryToAttempt(newList.first().category)
+
                     // Change form correctWords to finishedWords after 1s
                     delay(1000)
-                    val newListTwo = _finishedWords.value.toMutableList()
+                    val newListTwo = _game.value.finishedWords.toMutableList()
                     newListTwo.addAll(selectedWords)
-                    _finishedWords.value = newListTwo
+                    saveOrUpdateGame(
+                        _game.value.copy(
+                            finishedWords = newListTwo
+                        )
+                    )
                     _correctWords.value = emptyList()
                 } else {
                     val newList = _wrongWords.value.toMutableList()
                     newList.addAll(selectedWords)
                     _wrongWords.value = newList
 
-                    addOneMoreMistake()
+                    addMistakeToAttempt()
 
                     // Clear wrong words after 500ms
                     delay(500)
@@ -85,59 +128,29 @@ class WordsViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            _finishedWords.collect { finishedWords ->
+            finishedWords.collect { finishedWords ->
                 if (finishedWords.isEmpty()) return@collect
                 updateHasWonValue(
-                    finishedWords.size == _words.value.size
+                    finishedWords.size == _game.value.words.size
                 )
             }
         }
     }
 
-    private fun initializeGame() {
-        val savedDay = sharedPreferencesHelper.getDay()
-        val currentCategoriesIds = sharedPreferencesHelper.getCurrentCategoriesId()
-        val now = LocalDate.now()
-
-        if (currentCategoriesIds.isNotEmpty()) {
-            _lastDayPlayed.value = now
-            sharedPreferencesHelper.saveDay(now)
-            sharedPreferencesHelper.saveMistakes(0)
-            sharedPreferencesHelper.saveHasWon(false)
-        } else {
-            _lastDayPlayed.value = savedDay
-            _mistakes.value = sharedPreferencesHelper.getMistakes()
-            _hasWon.value = sharedPreferencesHelper.getHasWon()
-        }
-
-        getDailyWords(currentCategoriesIds.isEmpty())
-    }
-
-    fun getDailyWords(renewWords: Boolean) {
+    private fun getDailyWords() {
         viewModelScope.launch(Dispatchers.IO) {
             wordsRepository.getDailyWords().collect { result ->
                 when (result) {
                     is Result.Loading -> {}
                     is Result.Success -> {
-                        val alreadyPlayedIds = sharedPreferencesHelper.getCategoriesId()
-                        val currentCategoriesIds = sharedPreferencesHelper.getCurrentCategoriesId()
+                        val alreadyPlayedIds = wordsRepository.getAlreadyPlayedCategoriesIds()
 
                         val words = mutableListOf<Word>()
-                        val chosenCategories: List<Category>
 
-                        if (renewWords) {
-                            chosenCategories =
-                                result.data.categories.filter { !alreadyPlayedIds.contains(it.id) }
-                                    .shuffled()
-                                    .take(WORDS_PER_CATEGORY)
-
-                            sharedPreferencesHelper.saveCurrentCategoriesId(
-                                chosenCategories.map { it.id }.toSet()
-                            )
-                        } else {
-                            chosenCategories =
-                                result.data.categories.filter { currentCategoriesIds.contains(it.id) }
-                        }
+                        val chosenCategories: List<Category> =
+                            result.data.categories.filter { !alreadyPlayedIds.contains(it.id) }
+                                .shuffled()
+                                .take(WORDS_PER_CATEGORY)
 
                         chosenCategories.forEach { category ->
                             category.words.forEach { word ->
@@ -150,8 +163,11 @@ class WordsViewModel @Inject constructor(
                             }
                         }
 
-                        _categories.value = chosenCategories
-                        _words.value = words.shuffled()
+                        saveOrUpdateGame(
+                            _game.value.copy(
+                                words = words.shuffled()
+                            )
+                        )
                     }
 
                     is Result.Error -> {
@@ -162,30 +178,43 @@ class WordsViewModel @Inject constructor(
         }
     }
 
-    private fun addOneMoreMistake() {
-        _mistakes.value += 1
-        sharedPreferencesHelper.saveMistakes(_mistakes.value)
+    private fun addMistakeToAttempt() {
+        val newAttempts = _game.value.attempts.toMutableList()
+        newAttempts.add(null)
+        saveOrUpdateGame(
+            _game.value.copy(
+                attempts = newAttempts
+            )
+        )
     }
 
-    fun updateHasWonValue(value: Boolean) {
-        _hasWon.value = value
-        sharedPreferencesHelper.saveHasWon(value)
-        sharedPreferencesHelper.saveCurrentCategoriesId(emptySet())
-        sharedPreferencesHelper.saveCategoriesId(_categories.value.map { it.id }.toSet())
+    private fun addCategoryToAttempt(category: String) {
+        val newAttempts = _game.value.attempts.toMutableList()
+        newAttempts.add(category)
+        saveOrUpdateGame(
+            _game.value.copy(
+                attempts = newAttempts
+            )
+        )
+    }
 
+    private fun updateHasWonValue(value: Boolean) {
         if (value) {
-            viewModelScope.launch {
-                delay(1500)
-                _finishedWords.value = emptyList()
-            }
+            sharedPreferencesHelper.saveShouldRenewGame(false)
         }
+
+        saveOrUpdateGame(
+            _game.value.copy(
+                hasWon = value
+            )
+        )
     }
 
     fun selectWord(word: Word) {
         val selectedWordsCountIsMax = _selectedWords.value.size >= WORDS_PER_CATEGORY
         val isShowingCorrectAnswers = _correctWords.value.isNotEmpty()
         val isShowingWrongAnswers = _wrongWords.value.isNotEmpty()
-        val isAlreadyFinished = _finishedWords.value.contains(word)
+        val isAlreadyFinished = _game.value.finishedWords.contains(word)
 
         if (selectedWordsCountIsMax ||
             isShowingCorrectAnswers ||
@@ -201,6 +230,17 @@ class WordsViewModel @Inject constructor(
             newList.add(word)
         }
         _selectedWords.value = newList
+    }
+
+    private fun saveOrUpdateGame(game: Game) {
+        viewModelScope.launch(Dispatchers.IO) {
+            wordsRepository.saveOrUpdateGame(game)
+        }
+    }
+
+    fun hasSeenAds() {
+        sharedPreferencesHelper.saveShouldRenewGame(true)
+        getDailyWords()
     }
 
     companion object {
