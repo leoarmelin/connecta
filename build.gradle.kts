@@ -1,7 +1,7 @@
 buildscript {
     dependencies {
-        classpath("com.google.dagger:hilt-android-gradle-plugin:2.46")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.20")
+        classpath("com.google.dagger:hilt-android-gradle-plugin:2.48")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.10")
     }
 }
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
